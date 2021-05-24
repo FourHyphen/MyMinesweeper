@@ -13,7 +13,7 @@ namespace TestMyMinesweeper
         public MainWindowDriver(dynamic mainWindow)
         {
             MainWindow = mainWindow;
-            GameAreaDriver = new GameAreaDriver(mainWindow);
+            GameAreaDriver = new GameAreaDriver();
             Tree = new WindowControl(mainWindow).LogicalTree();
         }
 
