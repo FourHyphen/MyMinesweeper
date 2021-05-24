@@ -24,5 +24,15 @@ namespace MyMinesweeper
         {
             InitializeComponent();
         }
+
+        private void StartGame(string gameMode, int panelSize)
+        {
+
+        }
+
+        private void GameAreaMouseDown(System.Windows.Point p)
+        {
+
+        }
     }
 }

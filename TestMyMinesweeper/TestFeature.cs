@@ -49,9 +49,32 @@ namespace TestMyMinesweeper
         }
 
         [TestMethod]
-        public void TestMethod1()
+        public void TestGameOverWhenStartGameAndPanelOpeningIsMine()
         {
-            Assert.Fail();
+            // ゲーム開始時の表示内容確認
+            //           0       >= 80
+            //   0 ～ 20■■■■■
+            //          ■■■■■
+            //          ■■■■■
+            //  61 ～ 80■■■★■
+            //          ★■■■■
+            Driver.StartGame("Debug", 20);    // 20 = 1マスのサイズ(pixel)
+
+            Assert.IsFalse(Driver.IsShowingGameOver());
+            Assert.AreEqual(expected: 2, actual: Driver.GetNumPanelMine());
+            Assert.AreEqual(expected: 25, actual: Driver.GetNumPanelClosing());
+            Assert.AreEqual(expected: 0, actual: Driver.GetNumPanelOpened());
+
+            // ゲームオーバー時の表示内容確認
+            Driver.GameAreaMouseDown(new System.Windows.Point(70, 70));
+            Assert.IsTrue(Driver.IsShowingGameOver());
+            Assert.AreEqual(expected: 2, actual: Driver.GetNumPanelMine());
+            Assert.AreEqual(expected: 24, actual: Driver.GetNumPanelClosing());
+            Assert.AreEqual(expected: 1, actual: Driver.GetNumPanelOpened());
+
+            // ゲームオーバー後にそのゲームをプレイできないことの確認
+            Driver.GameAreaMouseDown(new System.Windows.Point(10, 10));
+            Assert.AreEqual(expected: 24, actual: Driver.GetNumPanelClosing());
         }
     }
 }
