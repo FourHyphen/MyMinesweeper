@@ -27,7 +27,14 @@ namespace MyMinesweeper
 
         private void StartGame(string gameMode, int panelSize)
         {
+            Panels p = new Panels(gameMode);
+            GameAreaDisplay gap = new GameAreaDisplay(GameArea, panelSize);
+            gap.Update(p);
+        }
 
+        private void GameAreaMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            GameAreaMouseDown(e.GetPosition(GameArea));
         }
 
         private void GameAreaMouseDown(System.Windows.Point p)
