@@ -5,8 +5,8 @@ namespace MyMinesweeper
     public class Panels
     {
         private List<Panel> PanelList { get; set; } = new List<Panel>();
-        private int Width { get; set; }
-        private int Height { get; set; }
+        public int Width { get; private set; }
+        public int Height { get; private set; }
 
         public Panels(string gameMode)
         {
