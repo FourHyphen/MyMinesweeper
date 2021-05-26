@@ -23,6 +23,18 @@ namespace MyMinesweeper
         public MainWindow()
         {
             InitializeComponent();
+            Init();
+        }
+
+        private void Init()
+        {
+            SetEnvironmentCurrentDirectory(Environment.CurrentDirectory + "../../../");  // F5開始を想定
+        }
+
+        private void SetEnvironmentCurrentDirectory(string environmentDirPath)
+        {
+            // TODO: 配布を考えるなら、exeと同階層にGameDataディレクトリがある場合/ない場合で分岐すべき
+            Environment.CurrentDirectory = environmentDirPath;
         }
 
         private void StartGame(string gameMode, int panelSize)
