@@ -21,7 +21,9 @@ namespace TestMyMinesweeper
         private WindowsAppFriend TestApp;
         private Process TestProcess;
         private dynamic MainWindow;
-        private MainWindowDriver Driver;
+        private MainWindowDriver MainWindowDriver;
+        private GameAreaDriver GameAreaDriver;
+        private InformationAreaDriver InformationAreaDriver;
 
         private string BeforeEnvironment { get; set; }
 
@@ -33,7 +35,11 @@ namespace TestMyMinesweeper
             TestApp = new WindowsAppFriend(Process.Start(exePath));
             TestProcess = Process.GetProcessById(TestApp.ProcessId);
             MainWindow = TestApp.Type("System.Windows.Application").Current.MainWindow;
-            Driver = new MainWindowDriver(MainWindow);
+
+            MainWindowDriver = new MainWindowDriver(MainWindow);
+            GameAreaDriver = new GameAreaDriver(MainWindow);
+            InformationAreaDriver = new InformationAreaDriver(MainWindow);
+
             BeforeEnvironment = Environment.CurrentDirectory;
             Environment.CurrentDirectory = Common.GetEnvironmentDirPath();
         }
@@ -58,23 +64,27 @@ namespace TestMyMinesweeper
             //          ■■■■■
             //  61 ～ 80■■■★■
             //          ★■■■■
-            Driver.StartGame("Debug", 20);    // 20 = 1マスのサイズ(pixel)
+            MainWindowDriver.StartGame("Debug", 20);    // 20 = 1マスのサイズ(pixel)
 
-            Assert.IsFalse(Driver.IsShowingGameOver());
-            Assert.AreEqual(expected: 2, actual: Driver.GetNumPanelMine());
-            Assert.AreEqual(expected: 25, actual: Driver.GetNumPanelClosing());
-            Assert.AreEqual(expected: 0, actual: Driver.GetNumPanelOpened());
+            Assert.IsFalse(GameAreaDriver.IsShowingGameOver());
+            Assert.AreEqual(expected: 25, actual: InformationAreaDriver.GetNumPanelClosing());
+            Assert.AreEqual(expected: 0, actual: InformationAreaDriver.GetNumPanelOpened());
+            Assert.AreEqual(expected: 2, actual: InformationAreaDriver.GetNumMine());
+            Assert.AreEqual(expected: 25, actual: GameAreaDriver.GetNumPanelClosing());
+            Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelOpened());
 
             // ゲームオーバー時の表示内容確認
-            Driver.GameAreaMouseDown(new System.Windows.Point(70, 70));
-            Assert.IsTrue(Driver.IsShowingGameOver());
-            Assert.AreEqual(expected: 2, actual: Driver.GetNumPanelMine());
-            Assert.AreEqual(expected: 24, actual: Driver.GetNumPanelClosing());
-            Assert.AreEqual(expected: 1, actual: Driver.GetNumPanelOpened());
+            GameAreaDriver.MouseDown(new System.Windows.Point(70, 70));
+            Assert.IsFalse(GameAreaDriver.IsShowingGameOver());
+            Assert.AreEqual(expected: 24, actual: InformationAreaDriver.GetNumPanelClosing());
+            Assert.AreEqual(expected: 1, actual: InformationAreaDriver.GetNumPanelOpened());
+            Assert.AreEqual(expected: 2, actual: InformationAreaDriver.GetNumMine());
+            Assert.AreEqual(expected: 24, actual: GameAreaDriver.GetNumPanelClosing());
+            Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpened());
 
             // ゲームオーバー後にそのゲームをプレイできないことの確認
-            Driver.GameAreaMouseDown(new System.Windows.Point(10, 10));
-            Assert.AreEqual(expected: 24, actual: Driver.GetNumPanelClosing());
+            GameAreaDriver.MouseDown(new System.Windows.Point(10, 10));
+            Assert.AreEqual(expected: 24, actual: GameAreaDriver.GetNumPanelClosing());
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace TestMyMinesweeper
 {
-    class DisplayControl
+    public class DisplayControl
     {
         protected void Failure(string methodName, string elementName)
         {

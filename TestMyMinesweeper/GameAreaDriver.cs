@@ -1,4 +1,5 @@
-﻿using RM.Friendly.WPFStandardControls;
+﻿using Codeer.Friendly.Windows.Grasp;
+using RM.Friendly.WPFStandardControls;
 using System;
 using System.Windows;
 
@@ -8,35 +9,38 @@ namespace TestMyMinesweeper
     {
         private static int MaxNumDisplayPanel = 100 * 100;    // 10000マスもあればテストには十分
 
-        private static string PanelNameMine = "Mine";
-
         private static string PanelNameClosing = "Closing";
 
         private static string PanelNameOpened = "Opened";
 
-        public GameAreaDriver() { }
+        private dynamic MainWindow { get; }
 
-        internal int GetNumPanelMine(IWPFDependencyObjectCollection<DependencyObject> tree)
+        private IWPFDependencyObjectCollection<System.Windows.DependencyObject> Tree { get; set; }
+
+        public GameAreaDriver(dynamic mainWindow)
         {
-            return GetDisplayNum(tree, PanelNameMine);
+            MainWindow = mainWindow;
+            Tree = new WindowControl(mainWindow).LogicalTree();
         }
 
-        internal int GetNumPanelClosing(IWPFDependencyObjectCollection<DependencyObject> tree)
+        public int GetNumPanelClosing()
         {
-            return GetDisplayNum(tree, PanelNameClosing);
+            return GetDisplayNum(PanelNameClosing);
         }
 
-        internal int GetNumPanelOpened(IWPFDependencyObjectCollection<DependencyObject> tree)
+        public int GetNumPanelOpened()
         {
-            return GetDisplayNum(tree, PanelNameOpened);
+            return GetDisplayNum(PanelNameOpened);
         }
 
-        public int GetDisplayNum(IWPFDependencyObjectCollection<DependencyObject> logicalTree, string panelName)
+        private int GetDisplayNum(string panelName)
         {
+            UpdateNowMainWindowStatus();
+
             int num = 0;
             for (int i = 1; i <= MaxNumDisplayPanel; i++)
             {
-                if (ExistPanel(logicalTree, panelName, i))
+                if (ExistPanel(panelName, i))
                 {
                     num++;
                 }
@@ -49,16 +53,26 @@ namespace TestMyMinesweeper
             return num;
         }
 
-        private bool ExistPanel(IWPFDependencyObjectCollection<DependencyObject> logicalTree, string panelName, int index)
+        private bool ExistPanel(string panelName, int index)
         {
             string panelImageName = panelName + index.ToString();
-            var panel = logicalTree.ByType<System.Windows.Controls.Image>().ByName(panelImageName);
+            var panel = Tree.ByType<System.Windows.Controls.Image>().ByName(panelImageName);
             return (panel.Count != 0);
         }
 
-        internal bool IsShowingGameOver(IWPFDependencyObjectCollection<DependencyObject> tree)
+        private void UpdateNowMainWindowStatus()
+        {
+            Tree = new WindowControl(MainWindow).LogicalTree();    // 現在の画面状況を取得
+        }
+
+        public bool IsShowingGameOver()
         {
             return false;
+        }
+
+        public void MouseDown(System.Windows.Point p)
+        {
+            MainWindow.GameAreaMouseDown(p);
         }
     }
 }
