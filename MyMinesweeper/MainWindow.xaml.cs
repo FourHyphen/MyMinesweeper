@@ -45,7 +45,7 @@ namespace MyMinesweeper
         private void StartGame(string gameMode, int panelSize)
         {
             Panels p = new Panels(gameMode);
-            GameAreaDisplay gap = new GameAreaDisplay(GameArea, panelSize);
+            GameAreaDisplay gap = new GameAreaDisplay(this, panelSize);
             gap.Update(p);
         }
 

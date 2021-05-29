@@ -6,20 +6,26 @@ namespace MyMinesweeper
 {
     internal class GameAreaDisplay
     {
-        private Grid GameArea { get; set; }
+        private MainWindow Main { get; set; }
 
         private int PanelSize { get; }
 
         private BitmapSource ImageClosing { get; set; }
 
-        public GameAreaDisplay(Grid gameArea, int panelSize)
+        public GameAreaDisplay(MainWindow main, int panelSize)
         {
-            GameArea = gameArea;
+            Main = main;
             PanelSize = panelSize;
             ImageClosing = ImageProcess.GetShowImage("./Resource/Image/Closing.png", PanelSize, PanelSize);
         }
 
-        internal void Update(Panels panels)
+        public void Update(Panels panels)
+        {
+            UpdateGameArea(panels);
+            UpdateInformationArea(panels);
+        }
+
+        private void UpdateGameArea(Panels panels)
         {
             // TODO: 実装
             StackPanel all = new StackPanel();
@@ -30,13 +36,14 @@ namespace MyMinesweeper
                 StackPanel stackPanel = CreateStackPanel();
                 for (int x = 0; x < panels.Width; x++)
                 {
-                    Image image = CreatePanelImage();
+                    int index = y * panels.Width + x + 1;    // 1始まり
+                    Image image = CreatePanelImage(index);
                     stackPanel.Children.Add(image);
                 }
                 all.Children.Add(stackPanel);
             }
 
-            GameArea.Children.Add(all);
+            Main.GameArea.Children.Add(all);
         }
 
         private StackPanel CreateStackPanel()
@@ -46,11 +53,19 @@ namespace MyMinesweeper
             return stackPanel;
         }
 
-        private Image CreatePanelImage()
+        private Image CreatePanelImage(int index)
         {
             Image image = new Image();
             image.Source = ImageClosing;
+            image.Name = "Closing" + index.ToString();
             return image;
+        }
+
+        private void UpdateInformationArea(Panels panels)
+        {
+            Main.NumPanelClosing.Content = panels.GetNumClosing().ToString();
+            Main.NumPanelOpened.Content = panels.GetNumOpened().ToString();
+            Main.NumMine.Content = panels.GetNumMine().ToString();
         }
     }
 }
