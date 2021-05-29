@@ -1,4 +1,6 @@
-﻿namespace MyMinesweeper
+﻿using System;
+
+namespace MyMinesweeper
 {
     public class Panel
     {
@@ -20,6 +22,11 @@
         public Panel Clone()
         {
             return new Panel(IsMine);
+        }
+
+        public void Open()
+        {
+            Status = PanelStatus.Opened;
         }
     }
 }

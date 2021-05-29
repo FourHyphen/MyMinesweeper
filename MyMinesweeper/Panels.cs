@@ -86,5 +86,25 @@ namespace MyMinesweeper
             int index = y * Width + x;
             return PanelList[index].IsMine;
         }
+
+        public void Open(int x, int y)
+        {
+            int index = y * Width + x;
+            PanelList[index].Open();
+        }
+
+        public bool IsGameOver()
+        {
+            int maxIndex = Width * Height;
+            for (int i = 0; i < maxIndex; i++)
+            {
+                if (PanelList[i].Status == Panel.PanelStatus.Opened && PanelList[i].IsMine)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

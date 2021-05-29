@@ -8,6 +8,8 @@ namespace MyMinesweeper
     {
         private MainWindow Main { get; set; }
 
+        private StackPanel PanelsArea { get; set; }
+
         private int PanelSize { get; }
 
         private BitmapSource ImageClosing { get; set; }
@@ -30,12 +32,12 @@ namespace MyMinesweeper
         {
             UpdateGameArea(panels);
             UpdateInformationArea(panels);
+            DisplayGameFinish(panels);
         }
 
         private void UpdateGameArea(Panels panels)
         {
-            // TODO: 実装
-            StackPanel all = new StackPanel();
+            InitPanelsArea();
 
             // TODO: Iteratorパターン使える
             for (int y = 0; y < panels.Height; y++)
@@ -46,10 +48,21 @@ namespace MyMinesweeper
                     Image image = CreatePanelImage(panels, x, y);
                     stackPanel.Children.Add(image);
                 }
-                all.Children.Add(stackPanel);
+                PanelsArea.Children.Add(stackPanel);
             }
+        }
 
-            Main.GameArea.Children.Add(all);
+        private void InitPanelsArea()
+        {
+            if (PanelsArea is null)
+            {
+                PanelsArea = new StackPanel();
+                Main.GameArea.Children.Add(PanelsArea);
+            }
+            else
+            {
+                PanelsArea.Children.Clear();
+            }
         }
 
         private StackPanel CreateStackPanel()
@@ -91,6 +104,15 @@ namespace MyMinesweeper
             Main.NumPanelClosing.Content = panels.GetNumClosing().ToString();
             Main.NumPanelOpened.Content = panels.GetNumOpened().ToString();
             Main.NumMine.Content = panels.GetNumMine().ToString();
+        }
+
+        private void DisplayGameFinish(Panels panels)
+        {
+            if (panels.IsGameOver())
+            {
+                Main.PlayResultArea.Visibility = System.Windows.Visibility.Visible;
+                Main.PlayResultLabel.Content = "GameOver....";
+            }
         }
     }
 }

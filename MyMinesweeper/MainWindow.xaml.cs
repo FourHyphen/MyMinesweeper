@@ -20,6 +20,10 @@ namespace MyMinesweeper
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Panels Panels { get; set; }
+
+        private GameAreaDisplay GameAreaDisplay { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -44,9 +48,9 @@ namespace MyMinesweeper
 
         private void StartGame(string gameMode, int panelSize)
         {
-            Panels p = new Panels(gameMode);
-            GameAreaDisplay gap = new GameAreaDisplay(this, panelSize);
-            gap.Update(p);
+            Panels = new Panels(gameMode);
+            GameAreaDisplay = new GameAreaDisplay(this, panelSize);
+            GameAreaDisplay.Update(Panels);
         }
 
         private void GameAreaMouseDown(object sender, MouseButtonEventArgs e)
@@ -56,7 +60,10 @@ namespace MyMinesweeper
 
         private void GameAreaMouseDown(System.Windows.Point p)
         {
-
+            int x = (int)(p.X / 20.0);
+            int y = (int)(p.Y / 20.0);
+            Panels.Open(x, y);
+            GameAreaDisplay.Update(Panels);
         }
     }
 }
