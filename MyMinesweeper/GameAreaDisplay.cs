@@ -37,8 +37,7 @@ namespace MyMinesweeper
                 StackPanel stackPanel = CreateStackPanel();
                 for (int x = 0; x < panels.Width; x++)
                 {
-                    int index = y * panels.Width + x + 1;    // 1始まり
-                    Image image = CreatePanelImage(index);
+                    Image image = CreatePanelImage();
                     stackPanel.Children.Add(image);
                 }
                 all.Children.Add(stackPanel);
@@ -54,11 +53,11 @@ namespace MyMinesweeper
             return stackPanel;
         }
 
-        private Image CreatePanelImage(int index)
+        private Image CreatePanelImage()
         {
             Image image = new Image();
             image.Source = ImageClosing;
-            image.Name = "Closing" + index.ToString();
+            image.Name = "Closing";
             return image;
         }
 

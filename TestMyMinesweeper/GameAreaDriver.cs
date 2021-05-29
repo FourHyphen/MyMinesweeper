@@ -7,8 +7,6 @@ namespace TestMyMinesweeper
 {
     internal class GameAreaDriver
     {
-        private static int MaxNumDisplayPanel = 100 * 100;    // 10000マスもあればテストには十分
-
         private static string PanelNameClosing = "Closing";
 
         private static string PanelNameOpened = "Opened";
@@ -39,33 +37,18 @@ namespace TestMyMinesweeper
         private int GetDisplayNum(string panelName)
         {
             UpdateNowMainWindowStatus();
-
-            int num = 0;
-            for (int i = 1; i <= MaxNumDisplayPanel; i++)
-            {
-                if (ExistPanel(panelName, i))
-                {
-                    num++;
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            return num;
-        }
-
-        private bool ExistPanel(string panelName, int index)
-        {
-            string panelImageName = panelName + index.ToString();
-            var panel = Tree.ByType<System.Windows.Controls.Image>().ByName(panelImageName);
-            return (panel.Count != 0);
+            return CountPanel(panelName);
         }
 
         private void UpdateNowMainWindowStatus()
         {
             Tree = new WindowControl(MainWindow).LogicalTree();    // 現在の画面状況を取得
+        }
+
+        private int CountPanel(string panelName)
+        {
+            var panel = Tree.ByType<System.Windows.Controls.Image>().ByName(panelName);
+            return panel.Count;
         }
 
         public bool IsShowingGameOver()
