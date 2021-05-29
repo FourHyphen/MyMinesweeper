@@ -75,7 +75,7 @@ namespace TestMyMinesweeper
 
             // ゲームオーバー時の表示内容確認
             GameAreaDriver.MouseDown(new System.Windows.Point(70, 70));
-            Assert.IsFalse(GameAreaDriver.IsShowingGameOver());
+            Assert.IsTrue(GameAreaDriver.IsShowingGameOver());
             Assert.AreEqual(expected: 24, actual: InformationAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 1, actual: InformationAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 2, actual: InformationAreaDriver.GetNumMine());
