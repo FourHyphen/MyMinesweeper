@@ -17,6 +17,7 @@ namespace MyMinesweeper
             Main = main;
             PanelSize = panelSize;
             ImageClosing = ImageProcess.GetShowImage("./Resource/Image/Closing.png", PanelSize, PanelSize);
+            Main.PlayResultArea.Visibility = System.Windows.Visibility.Hidden;
         }
 
         public void Update(Panels panels)

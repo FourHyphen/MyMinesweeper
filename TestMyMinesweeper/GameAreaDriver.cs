@@ -17,10 +17,13 @@ namespace TestMyMinesweeper
 
         private IWPFDependencyObjectCollection<System.Windows.DependencyObject> Tree { get; set; }
 
+        private LabelAdapter PlayResultLabel { get; set; }
+
         public GameAreaDriver(dynamic mainWindow)
         {
             MainWindow = mainWindow;
             Tree = new WindowControl(mainWindow).LogicalTree();
+            PlayResultLabel = new LabelAdapter("PlayResultLabel");
         }
 
         public int GetNumPanelClosing()
@@ -67,7 +70,14 @@ namespace TestMyMinesweeper
 
         public bool IsShowingGameOver()
         {
-            return false;
+            UpdateNowMainWindowStatus();
+
+            System.Windows.Visibility now = MainWindow.PlayResultArea.Visibility;
+            if (now == Visibility.Hidden)
+            {
+                return false;
+            }
+            return PlayResultLabel.Content(Tree).ToLower().Contains("gameover");
         }
 
         public void MouseDown(System.Windows.Point p)
