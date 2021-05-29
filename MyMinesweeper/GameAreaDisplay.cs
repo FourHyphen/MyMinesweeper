@@ -12,11 +12,17 @@ namespace MyMinesweeper
 
         private BitmapSource ImageClosing { get; set; }
 
+        private BitmapSource ImageOpenedMine { get; set; }
+
+        private BitmapSource ImageOpened { get; set; }
+
         public GameAreaDisplay(MainWindow main, int panelSize)
         {
             Main = main;
             PanelSize = panelSize;
             ImageClosing = ImageProcess.GetShowImage("./Resource/Image/Closing.png", PanelSize, PanelSize);
+            ImageOpenedMine = ImageProcess.GetShowImage("./Resource/Image/OpenedMine.png", PanelSize, PanelSize);
+            ImageOpened = ImageProcess.GetShowImage("./Resource/Image/Opened.png", PanelSize, PanelSize);
             Main.PlayResultArea.Visibility = System.Windows.Visibility.Hidden;
         }
 
@@ -37,7 +43,7 @@ namespace MyMinesweeper
                 StackPanel stackPanel = CreateStackPanel();
                 for (int x = 0; x < panels.Width; x++)
                 {
-                    Image image = CreatePanelImage();
+                    Image image = CreatePanelImage(panels, x, y);
                     stackPanel.Children.Add(image);
                 }
                 all.Children.Add(stackPanel);
@@ -53,11 +59,30 @@ namespace MyMinesweeper
             return stackPanel;
         }
 
-        private Image CreatePanelImage()
+        private Image CreatePanelImage(Panels panels, int x, int y)
         {
             Image image = new Image();
-            image.Source = ImageClosing;
-            image.Name = "Closing";
+            Panel.PanelStatus status = panels.GetStatus(x, y);
+            bool isMine = panels.IsMine(x, y);
+            if (status == Panel.PanelStatus.Closing)
+            {
+                image.Source = ImageClosing;
+                image.Name = "Closing";
+            }
+            else if (status == Panel.PanelStatus.Opened)
+            {
+                if (isMine)
+                {
+                    image.Source = ImageOpenedMine;
+                    image.Name = "OpenedMine";
+                }
+                else
+                {
+                    image.Source = ImageOpened;
+                    image.Name = "Opened";
+                }
+            }
+
             return image;
         }
 

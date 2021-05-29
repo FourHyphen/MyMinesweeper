@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MyMinesweeper
 {
@@ -72,6 +73,18 @@ namespace MyMinesweeper
             }
 
             return num;
+        }
+
+        public Panel.PanelStatus GetStatus(int x, int y)
+        {
+            int index = y * Width + x;
+            return PanelList[index].Status;
+        }
+
+        public bool IsMine(int x, int y)
+        {
+            int index = y * Width + x;
+            return PanelList[index].IsMine;
         }
     }
 }

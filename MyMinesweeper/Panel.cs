@@ -1,6 +1,6 @@
 ﻿namespace MyMinesweeper
 {
-    internal class Panel
+    public class Panel
     {
         public enum PanelStatus
         {
