@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Controls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyMinesweeper;
 
@@ -26,6 +27,13 @@ namespace TestMyMinesweeper
         public void TestInitialize()
         {
             PanelImage pi = new PanelImage(20);
+
+            Image closing = pi.CreateImage(MyMinesweeper.Panel.PanelStatus.Closing, true);
+            Assert.AreEqual(expected: "closing", actual: closing.Name.ToLower());
+            Image opened = pi.CreateImage(MyMinesweeper.Panel.PanelStatus.Opened, false);
+            Assert.AreEqual(expected: "opened", actual: opened.Name.ToLower());
+            Image openedMine = pi.CreateImage(MyMinesweeper.Panel.PanelStatus.Opened, true);
+            Assert.AreEqual(expected: "openedmine", actual: openedMine.Name.ToLower());
         }
     }
 }
