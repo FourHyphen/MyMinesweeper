@@ -93,5 +93,10 @@ namespace MyMinesweeper
             int all = PanelList.Count;
             return (opened + mine) == all;
         }
+
+        public bool IsGameFinished()
+        {
+            return (IsGameClear() || IsGameOver());
+        }
     }
 }

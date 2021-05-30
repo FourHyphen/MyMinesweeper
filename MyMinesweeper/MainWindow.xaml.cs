@@ -60,7 +60,7 @@ namespace MyMinesweeper
 
         private void GameAreaMouseDown(System.Windows.Point p)
         {
-            if (!Panels.IsGameOver())
+            if (!Panels.IsGameFinished())
             {
                 GameAreaMouseDownCore(p);
             }
