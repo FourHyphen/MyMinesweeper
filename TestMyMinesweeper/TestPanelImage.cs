@@ -24,7 +24,7 @@ namespace TestMyMinesweeper
         }
 
         [TestMethod]
-        public void TestInitialize()
+        public void TestSuccessInitialize()
         {
             PanelImage pi = new PanelImage(20);
 
