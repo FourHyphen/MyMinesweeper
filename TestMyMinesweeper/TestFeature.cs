@@ -110,6 +110,36 @@ namespace TestMyMinesweeper
             Assert.AreEqual(expected: 23, actual: GameAreaDriver.GetNumPanelOpened());
         }
 
+        [TestMethod]
+        public void TestPanelOpenedWriteOfNearMineNum()
+        {
+            // ０１★★★１
+            // １３５６５３
+            // ２★★★★★
+            // ３★７★８★
+            // ２★４★★★
+            int panelSize = 20;
+            MainWindowDriver.StartGame("Debug2", panelSize);
+
+            OpenAllWithoutMine2(panelSize);
+
+            // パネルの状況の確認
+            Assert.AreEqual(expected: 15, actual: InformationAreaDriver.GetNumPanelClosing());
+            Assert.AreEqual(expected: 15, actual: InformationAreaDriver.GetNumPanelOpened());
+            Assert.AreEqual(expected: 15, actual: InformationAreaDriver.GetNumMine());
+            Assert.AreEqual(expected: 15, actual: GameAreaDriver.GetNumPanelClosing());
+            Assert.AreEqual(expected: 15, actual: GameAreaDriver.GetNumPanelOpened());
+            Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpenedNearMine(0));
+            Assert.AreEqual(expected: 3, actual: GameAreaDriver.GetNumPanelOpenedNearMine(1));
+            Assert.AreEqual(expected: 2, actual: GameAreaDriver.GetNumPanelOpenedNearMine(2));
+            Assert.AreEqual(expected: 3, actual: GameAreaDriver.GetNumPanelOpenedNearMine(3));
+            Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpenedNearMine(4));
+            Assert.AreEqual(expected: 2, actual: GameAreaDriver.GetNumPanelOpenedNearMine(5));
+            Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpenedNearMine(6));
+            Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpenedNearMine(7));
+            Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpenedNearMine(8));
+        }
+
         private void OpenAllWithoutMine(int panelSize)
         {
             for (int i = 0; i < 5; i++)
@@ -130,6 +160,36 @@ namespace TestMyMinesweeper
             GameAreaDriver.MouseDown(new System.Windows.Point(50, 90));
             GameAreaDriver.MouseDown(new System.Windows.Point(70, 90));
             GameAreaDriver.MouseDown(new System.Windows.Point(90, 90));
+        }
+
+        private void OpenAllWithoutMine2(int panelSize)
+        {
+            // ex) panelSize = 20
+            //  0  20   40   60   80   100   120
+            //   ０   １   ★   ★   ★    １
+            //   １   ３   ５   ６   ５    ３
+            //   ２   ★   ★   ★   ★    ★
+            //   ３   ★   ７   ★   ８    ★
+            //   ２   ★   ４   ★   ★    ★
+            GameAreaDriver.MouseDown(new System.Windows.Point( 10, 10));
+            GameAreaDriver.MouseDown(new System.Windows.Point( 30, 10));
+            GameAreaDriver.MouseDown(new System.Windows.Point(110, 10));
+
+            GameAreaDriver.MouseDown(new System.Windows.Point( 10, 30));
+            GameAreaDriver.MouseDown(new System.Windows.Point( 30, 30));
+            GameAreaDriver.MouseDown(new System.Windows.Point( 50, 30));
+            GameAreaDriver.MouseDown(new System.Windows.Point( 70, 30));
+            GameAreaDriver.MouseDown(new System.Windows.Point( 90, 30));
+            GameAreaDriver.MouseDown(new System.Windows.Point(110, 30));
+
+            GameAreaDriver.MouseDown(new System.Windows.Point( 10, 50));
+
+            GameAreaDriver.MouseDown(new System.Windows.Point( 10, 70));
+            GameAreaDriver.MouseDown(new System.Windows.Point( 50, 70));
+            GameAreaDriver.MouseDown(new System.Windows.Point( 90, 70));
+
+            GameAreaDriver.MouseDown(new System.Windows.Point( 10, 90));
+            GameAreaDriver.MouseDown(new System.Windows.Point( 50, 90));
         }
     }
 }

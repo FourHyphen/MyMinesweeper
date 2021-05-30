@@ -20,6 +20,10 @@ namespace MyMinesweeper
             {
                 InitDebug();
             }
+            else if (gameMode.ToLower() == "debug2")
+            {
+                InitDebug2();
+            }
         }
 
         private void InitDebug()
@@ -33,6 +37,19 @@ namespace MyMinesweeper
             PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone());    // ■■■■■
             PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone()); PanelList.Add(mine.Clone()); PanelList.Add(plain.Clone());     // ■■■★■
             PanelList.Add(mine.Clone()); PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone());     // ★■■■■
+        }
+
+        private void InitDebug2()
+        {
+            Width = 6;
+            Height = 5;
+            Panel p = new Panel(false);
+            Panel m = new Panel(true);
+            PanelList.Add(p.Clone()); PanelList.Add(p.Clone()); PanelList.Add(m.Clone()); PanelList.Add(m.Clone()); PanelList.Add(m.Clone()); PanelList.Add(p.Clone());    // ０１★★★１
+            PanelList.Add(p.Clone()); PanelList.Add(p.Clone()); PanelList.Add(p.Clone()); PanelList.Add(p.Clone()); PanelList.Add(p.Clone()); PanelList.Add(p.Clone());    // １３５６５３
+            PanelList.Add(p.Clone()); PanelList.Add(m.Clone()); PanelList.Add(m.Clone()); PanelList.Add(m.Clone()); PanelList.Add(m.Clone()); PanelList.Add(m.Clone());    // ２★★★★★
+            PanelList.Add(p.Clone()); PanelList.Add(m.Clone()); PanelList.Add(p.Clone()); PanelList.Add(m.Clone()); PanelList.Add(p.Clone()); PanelList.Add(m.Clone());    // ３★７★８★
+            PanelList.Add(p.Clone()); PanelList.Add(m.Clone()); PanelList.Add(p.Clone()); PanelList.Add(m.Clone()); PanelList.Add(m.Clone()); PanelList.Add(m.Clone());    // ２★４★★★
         }
 
         public int GetNumClosing()

@@ -13,6 +13,8 @@ namespace TestMyMinesweeper
 
         private static string PanelNameOpenedMine = "OpenedMine";
 
+        private static string PanelNameOpenedNearMine = "OpenedNearMine";
+
         private dynamic MainWindow { get; }
 
         private IWPFDependencyObjectCollection<System.Windows.DependencyObject> Tree { get; set; }
@@ -35,6 +37,12 @@ namespace TestMyMinesweeper
         {
             int num = GetDisplayNum(PanelNameOpened);
             return num + GetDisplayNum(PanelNameOpenedMine);
+        }
+
+        public int GetNumPanelOpenedNearMine(int nearMineNum)
+        {
+            string search = PanelNameOpenedNearMine + nearMineNum.ToString();
+            return GetDisplayNum(search);
         }
 
         private int GetDisplayNum(string panelName)
