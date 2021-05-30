@@ -80,5 +80,18 @@ namespace MyMinesweeper
             List<Panel> gameOverPanel = PanelList.FindAll(x => (x.Status == Panel.PanelStatus.Opened && x.IsMine));
             return gameOverPanel.Count > 0;
         }
+
+        public bool IsGameClear()
+        {
+            if (IsGameOver())
+            {
+                return false;
+            }
+
+            int opened = GetNumOpened();
+            int mine = GetNumMine();
+            int all = PanelList.Count;
+            return (opened + mine) == all;
+        }
     }
 }

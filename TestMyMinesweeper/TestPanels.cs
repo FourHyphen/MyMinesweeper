@@ -33,5 +33,25 @@ namespace TestMyMinesweeper
             Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(0, 4));
             Assert.IsTrue(panels.IsGameOver());
         }
+
+        [TestMethod]
+        public void TestGameClearWhenAllPanelOpenWithoutMine()
+        {
+            Panels panels = new Panels("Debug");
+            Assert.IsFalse(panels.IsGameClear());
+
+            panels.Open(0, 0); panels.Open(1, 0); panels.Open(2, 0); panels.Open(3, 0); panels.Open(4, 0);
+            panels.Open(0, 1); panels.Open(1, 1); panels.Open(2, 1); panels.Open(3, 1); panels.Open(4, 1);
+            panels.Open(0, 2); panels.Open(1, 2); panels.Open(2, 2); panels.Open(3, 2); panels.Open(4, 2);
+            panels.Open(0, 3); panels.Open(1, 3); panels.Open(2, 3); /*              */ panels.Open(4, 3);
+            /*              */ panels.Open(1, 4); panels.Open(2, 4); panels.Open(3, 4);
+
+            Assert.IsFalse(panels.IsGameOver());
+            Assert.IsFalse(panels.IsGameClear());
+
+            panels.Open(4, 4);
+            Assert.IsFalse(panels.IsGameOver());
+            Assert.IsTrue(panels.IsGameClear());
+        }
     }
 }
