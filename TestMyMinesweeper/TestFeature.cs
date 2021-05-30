@@ -94,14 +94,20 @@ namespace TestMyMinesweeper
             MainWindowDriver.StartGame("Debug", panelSize);
             OpenAllWithoutMine(panelSize);
 
+            // パネルの状況の確認
             Assert.AreEqual(expected: 2, actual: InformationAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 23, actual: InformationAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 2, actual: InformationAreaDriver.GetNumMine());
             Assert.AreEqual(expected: 2, actual: GameAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 23, actual: GameAreaDriver.GetNumPanelOpened());
 
+            // ゲームクリア表示の確認
             Assert.IsFalse(GameAreaDriver.IsShowingGameOver());
             Assert.IsTrue(GameAreaDriver.IsShowingGameClear());
+
+            // ゲームクリア後にそのゲームをプレイできないことの確認
+            GameAreaDriver.MouseDown(new System.Windows.Point(70, 70));
+            Assert.AreEqual(expected: 23, actual: GameAreaDriver.GetNumPanelOpened());
         }
 
         private void OpenAllWithoutMine(int panelSize)
