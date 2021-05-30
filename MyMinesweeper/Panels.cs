@@ -47,30 +47,12 @@ namespace MyMinesweeper
 
         private int GetNumPanel(Panel.PanelStatus status)
         {
-            int num = 0;
-            foreach (Panel p in PanelList)
-            {
-                if (p.Status == status)
-                {
-                    num++;
-                }
-            }
-
-            return num;
+            return PanelList.FindAll(x => x.Status == status).Count;
         }
 
         public int GetNumMine()
         {
-            int num = 0;
-            foreach (Panel p in PanelList)
-            {
-                if (p.IsMine)
-                {
-                    num++;
-                }
-            }
-
-            return num;
+            return PanelList.FindAll(x => x.IsMine).Count;
         }
 
         public Panel.PanelStatus GetStatus(int x, int y)
@@ -93,15 +75,8 @@ namespace MyMinesweeper
 
         public bool IsGameOver()
         {
-            foreach (Panel p in PanelList)
-            {
-                if (p.Status == Panel.PanelStatus.Opened && p.IsMine)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            List<Panel> gameOverPanel = PanelList.FindAll(x => (x.Status == Panel.PanelStatus.Opened && x.IsMine));
+            return gameOverPanel.Count > 0;
         }
     }
 }
