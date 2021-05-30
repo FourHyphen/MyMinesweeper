@@ -86,5 +86,44 @@ namespace TestMyMinesweeper
             GameAreaDriver.MouseDown(new System.Windows.Point(10, 10));
             Assert.AreEqual(expected: 24, actual: GameAreaDriver.GetNumPanelClosing());
         }
+
+        [TestMethod]
+        public void TestGameClearWhenAllPanelOpenWithoutMine()
+        {
+            int panelSize = 20;
+            MainWindowDriver.StartGame("Debug", panelSize);
+            OpenAllWithoutMine(panelSize);
+
+            Assert.AreEqual(expected: 2, actual: InformationAreaDriver.GetNumPanelClosing());
+            Assert.AreEqual(expected: 23, actual: InformationAreaDriver.GetNumPanelOpened());
+            Assert.AreEqual(expected: 2, actual: InformationAreaDriver.GetNumMine());
+            Assert.AreEqual(expected: 2, actual: GameAreaDriver.GetNumPanelClosing());
+            Assert.AreEqual(expected: 23, actual: GameAreaDriver.GetNumPanelOpened());
+
+            Assert.IsFalse(GameAreaDriver.IsShowingGameOver());
+            Assert.IsTrue(GameAreaDriver.IsShowingGameClear());
+        }
+
+        private void OpenAllWithoutMine(int panelSize)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    GameAreaDriver.MouseDown(new System.Windows.Point(10 + (i * panelSize), 10 + (j * panelSize)));
+                }
+            }
+            Assert.IsFalse(GameAreaDriver.IsShowingGameOver());
+
+            GameAreaDriver.MouseDown(new System.Windows.Point(10, 70));
+            GameAreaDriver.MouseDown(new System.Windows.Point(30, 70));
+            GameAreaDriver.MouseDown(new System.Windows.Point(50, 70));
+            GameAreaDriver.MouseDown(new System.Windows.Point(90, 70));
+
+            GameAreaDriver.MouseDown(new System.Windows.Point(30, 90));
+            GameAreaDriver.MouseDown(new System.Windows.Point(50, 90));
+            GameAreaDriver.MouseDown(new System.Windows.Point(70, 90));
+            GameAreaDriver.MouseDown(new System.Windows.Point(90, 90));
+        }
     }
 }

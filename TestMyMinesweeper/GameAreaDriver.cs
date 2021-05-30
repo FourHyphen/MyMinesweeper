@@ -66,6 +66,17 @@ namespace TestMyMinesweeper
             return PlayResultLabel.Content(Tree).ToLower().Contains("gameover");
         }
 
+        public bool IsShowingGameClear()
+        {
+            UpdateNowMainWindowStatus();
+            System.Windows.Visibility now = MainWindow.PlayResultArea.Visibility;
+            if (now == Visibility.Hidden)
+            {
+                return false;
+            }
+            return PlayResultLabel.Content(Tree).ToLower().Contains("clear");
+        }
+
         public void MouseDown(System.Windows.Point p)
         {
             MainWindow.GameAreaMouseDown(p);
