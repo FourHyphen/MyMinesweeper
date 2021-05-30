@@ -10,21 +10,12 @@ namespace MyMinesweeper
 
         private StackPanel PanelsArea { get; set; }
 
-        private int PanelSize { get; }
-
-        private BitmapSource ImageClosing { get; set; }
-
-        private BitmapSource ImageOpenedMine { get; set; }
-
-        private BitmapSource ImageOpened { get; set; }
+        private PanelImage PanelImage { get; set; }
 
         public GameAreaDisplay(MainWindow main, int panelSize)
         {
             Main = main;
-            PanelSize = panelSize;
-            ImageClosing = ImageProcess.GetShowImage("./Resource/Image/Closing.png", PanelSize, PanelSize);
-            ImageOpenedMine = ImageProcess.GetShowImage("./Resource/Image/OpenedMine.png", PanelSize, PanelSize);
-            ImageOpened = ImageProcess.GetShowImage("./Resource/Image/Opened.png", PanelSize, PanelSize);
+            PanelImage = new PanelImage(panelSize);
             Main.PlayResultArea.Visibility = System.Windows.Visibility.Hidden;
         }
 
@@ -39,7 +30,6 @@ namespace MyMinesweeper
         {
             InitPanelsArea();
 
-            // TODO: Iteratorパターン使える
             for (int y = 0; y < panels.Height; y++)
             {
                 StackPanel stackPanel = CreateStackPanel();
@@ -48,6 +38,7 @@ namespace MyMinesweeper
                     Image image = CreatePanelImage(panels, x, y);
                     stackPanel.Children.Add(image);
                 }
+
                 PanelsArea.Children.Add(stackPanel);
             }
         }
@@ -74,29 +65,9 @@ namespace MyMinesweeper
 
         private Image CreatePanelImage(Panels panels, int x, int y)
         {
-            Image image = new Image();
             Panel.PanelStatus status = panels.GetStatus(x, y);
             bool isMine = panels.IsMine(x, y);
-            if (status == Panel.PanelStatus.Closing)
-            {
-                image.Source = ImageClosing;
-                image.Name = "Closing";
-            }
-            else if (status == Panel.PanelStatus.Opened)
-            {
-                if (isMine)
-                {
-                    image.Source = ImageOpenedMine;
-                    image.Name = "OpenedMine";
-                }
-                else
-                {
-                    image.Source = ImageOpened;
-                    image.Name = "Opened";
-                }
-            }
-
-            return image;
+            return PanelImage.CreateImage(status, isMine);
         }
 
         private void UpdateInformationArea(Panels panels)
