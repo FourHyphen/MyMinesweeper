@@ -57,20 +57,22 @@ namespace MyMinesweeper
 
         public Panel.PanelStatus GetStatus(int x, int y)
         {
-            int index = y * Width + x;
-            return PanelList[index].Status;
+            return PanelList[CalcIndex(x, y)].Status;
         }
 
         public bool IsMine(int x, int y)
         {
-            int index = y * Width + x;
-            return PanelList[index].IsMine;
+            return PanelList[CalcIndex(x, y)].IsMine;
         }
 
         public void Open(int x, int y)
         {
-            int index = y * Width + x;
-            PanelList[index].Open();
+            PanelList[CalcIndex(x, y)].Open();
+        }
+
+        private int CalcIndex(int x, int y)
+        {
+            return y * Width + x;
         }
 
         public bool IsGameOver()
