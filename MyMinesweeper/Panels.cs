@@ -47,11 +47,10 @@ namespace MyMinesweeper
 
         private int GetNumPanel(Panel.PanelStatus status)
         {
-            int maxIndex = Width * Height;
             int num = 0;
-            for (int i = 0; i < maxIndex; i++)
+            foreach (Panel p in PanelList)
             {
-                if (PanelList[i].Status == status)
+                if (p.Status == status)
                 {
                     num++;
                 }
@@ -62,11 +61,10 @@ namespace MyMinesweeper
 
         public int GetNumMine()
         {
-            int maxIndex = Width * Height;
             int num = 0;
-            for (int i = 0; i < maxIndex; i++)
+            foreach (Panel p in PanelList)
             {
-                if (PanelList[i].IsMine)
+                if (p.IsMine)
                 {
                     num++;
                 }
@@ -95,10 +93,9 @@ namespace MyMinesweeper
 
         public bool IsGameOver()
         {
-            int maxIndex = Width * Height;
-            for (int i = 0; i < maxIndex; i++)
+            foreach (Panel p in PanelList)
             {
-                if (PanelList[i].Status == Panel.PanelStatus.Opened && PanelList[i].IsMine)
+                if (p.Status == Panel.PanelStatus.Opened && p.IsMine)
                 {
                     return true;
                 }
