@@ -84,6 +84,12 @@ namespace MyMinesweeper
                 Main.PlayResultArea.Visibility = System.Windows.Visibility.Visible;
                 Main.PlayResultLabel.Content = "GameOver....";
             }
+            else if (panels.IsGameClear())
+            {
+                Main.PlayResultArea.Visibility = System.Windows.Visibility.Visible;
+                Main.PlayResultLabel.Content = "GameClear!";
+                Main.PlayResultArea.Background = System.Windows.Media.Brushes.Blue;
+            }
         }
     }
 }
