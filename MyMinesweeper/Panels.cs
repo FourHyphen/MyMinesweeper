@@ -6,6 +6,7 @@ namespace MyMinesweeper
     public class Panels
     {
         private List<Panel> PanelList { get; set; } = new List<Panel>();
+        private List<int> NumNearMineList { get; set; } = new List<int>();
         public int Width { get; private set; }
         public int Height { get; private set; }
 
@@ -24,6 +25,8 @@ namespace MyMinesweeper
             {
                 InitDebug2();
             }
+
+            InitNumNearMineList();
         }
 
         private void InitDebug()
@@ -52,6 +55,50 @@ namespace MyMinesweeper
             PanelList.Add(p.Clone()); PanelList.Add(m.Clone()); PanelList.Add(p.Clone()); PanelList.Add(m.Clone()); PanelList.Add(m.Clone()); PanelList.Add(m.Clone());    // ２★４★★★
         }
 
+        private void InitNumNearMineList()
+        {
+            int maxLength = Width * Height;
+            for (int y = 0; y < Height; y++)
+            {
+                for (int x = 0; x < Width; x++)
+                {
+                    int index = y * Width + x;
+                    if (PanelList[index].IsMine)
+                    {
+                        NumNearMineList.Add(-1);
+                        continue;
+                    }
+
+                    int nearMineNum = 0;
+                    for (int j = -1; j <= 1; j++)
+                    {
+                        int tmpY = y + j;
+                        if (tmpY < 0 || tmpY >= Height)
+                        {
+                            continue;
+                        }
+
+                        for (int i = -1; i <= 1; i++)
+                        {
+                            int tmpX = x + i;
+                            if (tmpX < 0 || tmpX >= Width)
+                            {
+                                continue;
+                            }
+
+                            int nowIndex = tmpY * Width + tmpX;
+                            if (PanelList[nowIndex].IsMine)
+                            {
+                                nearMineNum++;
+                            }
+                        }
+                    }
+
+                    NumNearMineList.Add(nearMineNum);
+                }
+            }
+        }
+
         public int GetNumClosing()
         {
             return GetNumPanel(Panel.PanelStatus.Closing);
@@ -70,6 +117,11 @@ namespace MyMinesweeper
         public int GetNumMine()
         {
             return PanelList.FindAll(x => x.IsMine).Count;
+        }
+
+        public int GetNumNearMine(int x, int y)
+        {
+            return NumNearMineList[CalcIndex(x, y)];
         }
 
         public Panel.PanelStatus GetStatus(int x, int y)
