@@ -4,7 +4,7 @@ using System.Windows.Media.Imaging;
 
 namespace MyMinesweeper
 {
-    internal class GameAreaDisplay
+    internal class GameAreaDisplay : IDisposable
     {
         private MainWindow Main { get; set; }
 
@@ -17,6 +17,16 @@ namespace MyMinesweeper
             Main = main;
             PanelImage = new PanelImage(panelSize);
             Main.PlayResultArea.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        public void Dispose()
+        {
+            Clear();
+        }
+
+        private void Clear()
+        {
+            PanelsArea.Children.Clear();
         }
 
         public void Update(Panels panels)
@@ -52,7 +62,7 @@ namespace MyMinesweeper
             }
             else
             {
-                PanelsArea.Children.Clear();
+                Clear();
             }
         }
 
