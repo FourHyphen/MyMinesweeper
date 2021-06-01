@@ -129,15 +129,15 @@ namespace TestMyMinesweeper
             Assert.AreEqual(expected: 15, actual: InformationAreaDriver.GetNumMine());
             Assert.AreEqual(expected: 15, actual: GameAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 15, actual: GameAreaDriver.GetNumPanelOpened());
-            Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpenedNearMine(0));
-            Assert.AreEqual(expected: 3, actual: GameAreaDriver.GetNumPanelOpenedNearMine(1));
-            Assert.AreEqual(expected: 2, actual: GameAreaDriver.GetNumPanelOpenedNearMine(2));
-            Assert.AreEqual(expected: 3, actual: GameAreaDriver.GetNumPanelOpenedNearMine(3));
-            Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpenedNearMine(4));
-            Assert.AreEqual(expected: 2, actual: GameAreaDriver.GetNumPanelOpenedNearMine(5));
-            Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpenedNearMine(6));
-            Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpenedNearMine(7));
-            Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpenedNearMine(8));
+            Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpened(0));
+            Assert.AreEqual(expected: 3, actual: GameAreaDriver.GetNumPanelOpened(1));
+            Assert.AreEqual(expected: 2, actual: GameAreaDriver.GetNumPanelOpened(2));
+            Assert.AreEqual(expected: 3, actual: GameAreaDriver.GetNumPanelOpened(3));
+            Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpened(4));
+            Assert.AreEqual(expected: 2, actual: GameAreaDriver.GetNumPanelOpened(5));
+            Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpened(6));
+            Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpened(7));
+            Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpened(8));
         }
 
         private void OpenAllWithoutMine(int panelSize)

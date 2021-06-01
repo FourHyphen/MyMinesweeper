@@ -35,14 +35,17 @@ namespace TestMyMinesweeper
 
         public int GetNumPanelOpened()
         {
-            int num = GetDisplayNum(PanelNameOpened);
+            int num = 0;
+            for (int i = 0; i <=8; i++)
+            {
+                num += GetDisplayNum(PanelNameOpened + i.ToString());
+            }
             return num + GetDisplayNum(PanelNameOpenedMine);
         }
 
-        public int GetNumPanelOpenedNearMine(int nearMineNum)
+        public int GetNumPanelOpened(int nearMineNum)
         {
-            string search = PanelNameOpenedNearMine + nearMineNum.ToString();
-            return GetDisplayNum(search);
+            return GetDisplayNum(PanelNameOpened + nearMineNum.ToString());
         }
 
         private int GetDisplayNum(string panelName)
