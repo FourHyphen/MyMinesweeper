@@ -140,6 +140,30 @@ namespace TestMyMinesweeper
             Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpened(8));
         }
 
+        [TestMethod]
+        public void TestRestartGame()
+        {
+            int panelSize = 20;
+            MainWindowDriver.StartGame("Debug", panelSize);
+            Assert.IsFalse(GameAreaDriver.IsShowingGameOver());
+
+            GameAreaDriver.MouseDown(new System.Windows.Point(70, 50));    // 非地雷パネル数のリセットチェックのためにオープン
+            GameAreaDriver.MouseDown(new System.Windows.Point(70, 70));    // 地雷
+            Assert.IsTrue(GameAreaDriver.IsShowingGameOver());
+            Assert.AreEqual(expected: 23, actual: InformationAreaDriver.GetNumPanelClosing());
+            Assert.AreEqual(expected: 2, actual: InformationAreaDriver.GetNumPanelOpened());
+            Assert.AreEqual(expected: 2, actual: InformationAreaDriver.GetNumMine());
+            Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpened(1));
+
+            // Restartチェック
+            MainWindowDriver.StartGame("Debug2", panelSize);
+            Assert.IsFalse(GameAreaDriver.IsShowingGameOver());
+            Assert.AreEqual(expected: 30, actual: InformationAreaDriver.GetNumPanelClosing());
+            Assert.AreEqual(expected: 0, actual: InformationAreaDriver.GetNumPanelOpened());
+            Assert.AreEqual(expected: 15, actual: InformationAreaDriver.GetNumMine());
+            Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelOpened(1));
+        }
+
         private void OpenAllWithoutMine(int panelSize)
         {
             for (int i = 0; i < 5; i++)
