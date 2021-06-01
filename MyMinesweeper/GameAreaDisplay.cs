@@ -67,7 +67,8 @@ namespace MyMinesweeper
         {
             Panel.PanelStatus status = panels.GetStatus(x, y);
             bool isMine = panels.IsMine(x, y);
-            return PanelImage.CreateImage(status, isMine);
+            int numNearMine = panels.GetNumNearMine(x, y);
+            return PanelImage.CreateImage(status, isMine, numNearMine);
         }
 
         private void UpdateInformationArea(Panels panels)

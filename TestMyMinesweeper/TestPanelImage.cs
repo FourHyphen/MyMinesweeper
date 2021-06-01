@@ -28,12 +28,27 @@ namespace TestMyMinesweeper
         {
             PanelImage pi = new PanelImage(20);
 
-            Image closing = pi.CreateImage(MyMinesweeper.Panel.PanelStatus.Closing, true);
+            Image closing = pi.CreateImage(MyMinesweeper.Panel.PanelStatus.Closing, true, 0);
             Assert.AreEqual(expected: "closing", actual: closing.Name.ToLower());
-            Image opened = pi.CreateImage(MyMinesweeper.Panel.PanelStatus.Opened, false);
-            Assert.AreEqual(expected: "opened", actual: opened.Name.ToLower());
-            Image openedMine = pi.CreateImage(MyMinesweeper.Panel.PanelStatus.Opened, true);
+
+            AreEqualImageNearMine(pi, 0);
+            AreEqualImageNearMine(pi, 1);
+            AreEqualImageNearMine(pi, 2);
+            AreEqualImageNearMine(pi, 3);
+            AreEqualImageNearMine(pi, 4);
+            AreEqualImageNearMine(pi, 5);
+            AreEqualImageNearMine(pi, 6);
+            AreEqualImageNearMine(pi, 7);
+            AreEqualImageNearMine(pi, 8);
+
+            Image openedMine = pi.CreateImage(MyMinesweeper.Panel.PanelStatus.Opened, true, 0);
             Assert.AreEqual(expected: "openedmine", actual: openedMine.Name.ToLower());
+        }
+
+        private void AreEqualImageNearMine(PanelImage pi, int nearMineNum)
+        {
+            Image opened = pi.CreateImage(MyMinesweeper.Panel.PanelStatus.Opened, false, nearMineNum);
+            Assert.AreEqual(expected: "opened" + nearMineNum.ToString(), actual: opened.Name.ToLower());
         }
     }
 }
