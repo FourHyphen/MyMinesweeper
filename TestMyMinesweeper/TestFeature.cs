@@ -164,6 +164,47 @@ namespace TestMyMinesweeper
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelOpened(1));
         }
 
+        [TestMethod]
+        public void TestAllPanelNearNotMineOpenWhenPanelNumOfNearMine0Open()
+        {
+            // 隣接地雷数0の非地雷パネルを開いたら、周囲の非地雷パネルをまとめて開く機能
+            int panelSize = 20;
+            MainWindowDriver.StartGame("Debug", panelSize);
+
+            // 角から探索開始(1)
+            GameAreaDriver.MouseDown(new System.Windows.Point(10, 10));
+            Assert.AreEqual(expected: 7, actual: InformationAreaDriver.GetNumPanelClosing());
+            Assert.AreEqual(expected: 18, actual: InformationAreaDriver.GetNumPanelOpened());
+            Assert.AreEqual(expected: 18, actual: GameAreaDriver.GetNumPanelOpened(1));
+
+            // 角から探索開始(2)
+            MainWindowDriver.StartGame("Debug", panelSize);
+            GameAreaDriver.MouseDown(new System.Windows.Point(90, 10));
+            Assert.AreEqual(expected: 7, actual: InformationAreaDriver.GetNumPanelClosing());
+            Assert.AreEqual(expected: 18, actual: InformationAreaDriver.GetNumPanelOpened());
+            Assert.AreEqual(expected: 18, actual: GameAreaDriver.GetNumPanelOpened(1));
+
+            // 角以外から探索開始
+            MainWindowDriver.StartGame("Debug", panelSize);
+            GameAreaDriver.MouseDown(new System.Windows.Point(30, 30));
+            Assert.AreEqual(expected: 7, actual: InformationAreaDriver.GetNumPanelClosing());
+            Assert.AreEqual(expected: 18, actual: InformationAreaDriver.GetNumPanelOpened());
+            Assert.AreEqual(expected: 18, actual: GameAreaDriver.GetNumPanelOpened(1));
+
+            // 地雷パネルに隣接しているパネルを開いても、他パネルは開かない
+            MainWindowDriver.StartGame("Debug", panelSize);
+            GameAreaDriver.MouseDown(new System.Windows.Point(50, 50));
+            Assert.AreEqual(expected: 24, actual: InformationAreaDriver.GetNumPanelClosing());
+            Assert.AreEqual(expected: 1, actual: InformationAreaDriver.GetNumPanelOpened());
+            Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpened(1));
+
+            // 地雷パネルを開いても、他パネルは開かない
+            GameAreaDriver.MouseDown(new System.Windows.Point(70, 70));
+            Assert.AreEqual(expected: 23, actual: InformationAreaDriver.GetNumPanelClosing());
+            Assert.AreEqual(expected: 2, actual: InformationAreaDriver.GetNumPanelOpened());
+            Assert.AreEqual(expected: 2, actual: GameAreaDriver.GetNumPanelOpened(1));
+        }
+
         private void OpenAllWithoutMine(int panelSize)
         {
             for (int i = 0; i < 5; i++)
