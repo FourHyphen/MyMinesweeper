@@ -12,12 +12,12 @@ namespace MyMinesweeper
 
         public static bool IsGameOver(Panels panels)
         {
-            return panels.IsGameOver();
+            return panels.IsOpenedPanelMine();
         }
 
         public static bool IsGameClear(Panels panels)
         {
-            return panels.IsGameClear();
+            return panels.IsAllOpenedPanelsNotMine();
         }
     }
 }

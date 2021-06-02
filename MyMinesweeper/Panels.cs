@@ -143,15 +143,15 @@ namespace MyMinesweeper
             return y * Width + x;
         }
 
-        public bool IsGameOver()
+        public bool IsOpenedPanelMine()
         {
             List<Panel> gameOverPanel = PanelList.FindAll(x => (x.Status == Panel.PanelStatus.Opened && x.IsMine));
             return gameOverPanel.Count > 0;
         }
 
-        public bool IsGameClear()
+        public bool IsAllOpenedPanelsNotMine()
         {
-            if (IsGameOver())
+            if (IsOpenedPanelMine())
             {
                 return false;
             }
@@ -164,7 +164,7 @@ namespace MyMinesweeper
 
         public bool IsGameFinished()
         {
-            return (IsGameClear() || IsGameOver());
+            return (IsAllOpenedPanelsNotMine() || IsOpenedPanelMine());
         }
     }
 }
