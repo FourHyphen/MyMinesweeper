@@ -90,12 +90,12 @@ namespace MyMinesweeper
 
         private void DisplayGameFinish(Panels panels)
         {
-            if (panels.IsOpenedPanelMine())
+            if (GameStatus.IsGameOver(panels))
             {
                 Main.PlayResultArea.Visibility = System.Windows.Visibility.Visible;
                 Main.PlayResultLabel.Content = "GameOver....";
             }
-            else if (panels.IsAllOpenedPanelsNotMine())
+            else if (GameStatus.IsGameClear(panels))
             {
                 Main.PlayResultArea.Visibility = System.Windows.Visibility.Visible;
                 Main.PlayResultLabel.Content = "GameClear!";
