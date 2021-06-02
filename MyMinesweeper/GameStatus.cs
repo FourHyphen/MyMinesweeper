@@ -19,5 +19,10 @@ namespace MyMinesweeper
         {
             return panels.IsAllOpenedPanelsNotMine();
         }
+
+        public static bool IsGameFinished(Panels panels)
+        {
+            return (panels.IsAllOpenedPanelsNotMine() || panels.IsOpenedPanelMine());
+        }
     }
 }
