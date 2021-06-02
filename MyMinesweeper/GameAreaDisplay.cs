@@ -45,7 +45,7 @@ namespace MyMinesweeper
                 StackPanel stackPanel = CreateStackPanel();
                 for (int x = 0; x < panels.Width; x++)
                 {
-                    Image image = CreatePanelImage(panels, x, y);
+                    Image image = CreateImage(panels, x, y);
                     stackPanel.Children.Add(image);
                 }
 
@@ -73,7 +73,7 @@ namespace MyMinesweeper
             return stackPanel;
         }
 
-        private Image CreatePanelImage(Panels panels, int x, int y)
+        private Image CreateImage(Panels panels, int x, int y)
         {
             Panel.PanelStatus status = panels.GetStatus(x, y);
             bool isMine = panels.IsMine(x, y);

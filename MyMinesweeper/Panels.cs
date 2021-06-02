@@ -57,7 +57,6 @@ namespace MyMinesweeper
 
         private void InitNumNearMineList()
         {
-            int maxLength = Width * Height;
             for (int y = 0; y < Height; y++)
             {
                 for (int x = 0; x < Width; x++)
@@ -72,21 +71,21 @@ namespace MyMinesweeper
                     int nearMineNum = 0;
                     for (int j = -1; j <= 1; j++)
                     {
-                        int tmpY = y + j;
-                        if (tmpY < 0 || tmpY >= Height)
+                        int nowY = y + j;
+                        if (nowY < 0 || nowY >= Height)
                         {
                             continue;
                         }
 
                         for (int i = -1; i <= 1; i++)
                         {
-                            int tmpX = x + i;
-                            if (tmpX < 0 || tmpX >= Width)
+                            int nowX = x + i;
+                            if (nowX < 0 || nowX >= Width)
                             {
                                 continue;
                             }
 
-                            int nowIndex = tmpY * Width + tmpX;
+                            int nowIndex = nowY * Width + nowX;
                             if (PanelList[nowIndex].IsMine)
                             {
                                 nearMineNum++;
