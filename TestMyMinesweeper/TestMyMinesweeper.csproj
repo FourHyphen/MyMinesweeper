@@ -98,6 +98,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestPanelImage.cs" />
     <Compile Include="TestPanels.cs" />
+    <Compile Include="TestGameStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

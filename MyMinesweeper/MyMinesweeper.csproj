@@ -74,6 +74,7 @@
     <Compile Include="Panel.cs" />
     <Compile Include="PanelImage.cs" />
     <Compile Include="Panels.cs" />
+    <Compile Include="GameStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
