@@ -14,5 +14,10 @@ namespace MyMinesweeper
         {
             return panels.IsGameOver();
         }
+
+        public static bool IsGameClear(Panels panels)
+        {
+            return panels.IsGameClear();
+        }
     }
 }
