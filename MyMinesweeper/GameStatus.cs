@@ -17,12 +17,12 @@ namespace MyMinesweeper
 
         public static bool IsGameClear(Panels panels)
         {
-            return panels.IsAllOpenedPanelsNotMine();
+            return panels.IsAllOpenedPanelsWithoutMine();
         }
 
         public static bool IsGameFinished(Panels panels)
         {
-            return (panels.IsAllOpenedPanelsNotMine() || panels.IsOpenedPanelMine());
+            return (panels.IsAllOpenedPanelsWithoutMine() || panels.IsOpenedPanelMine());
         }
     }
 }

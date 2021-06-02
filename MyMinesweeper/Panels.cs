@@ -145,11 +145,11 @@ namespace MyMinesweeper
 
         public bool IsOpenedPanelMine()
         {
-            List<Panel> gameOverPanel = PanelList.FindAll(x => (x.Status == Panel.PanelStatus.Opened && x.IsMine));
-            return gameOverPanel.Count > 0;
+            List<Panel> panelOpenedMine = PanelList.FindAll(x => (x.Status == Panel.PanelStatus.Opened && x.IsMine));
+            return panelOpenedMine.Count > 0;
         }
 
-        public bool IsAllOpenedPanelsNotMine()
+        public bool IsAllOpenedPanelsWithoutMine()
         {
             if (IsOpenedPanelMine())
             {
