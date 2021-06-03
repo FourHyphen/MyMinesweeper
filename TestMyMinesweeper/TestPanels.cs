@@ -42,5 +42,70 @@ namespace TestMyMinesweeper
             Assert.AreEqual(expected: 2, actual: panels.GetNumNearMine(0, 4));
             Assert.AreEqual(expected: 4, actual: panels.GetNumNearMine(2, 4));
         }
+
+        [TestMethod]
+        public void TestAllPanelsNearNotMineOpenWhenPanelNearMine0Open()
+        {
+            // ■■■■■
+            // ■■■■■
+            // ■■■■■
+            // ■■■★■
+            // ★■■■■
+            // 左上起点での探索
+            Panels panels = new Panels("Debug");
+            panels.Open(0, 0);
+            AssertAreEqualClosingAndOpened(panels);
+
+            // 右上起点での探索
+            panels = new Panels("Debug");
+            panels.Open(4, 0);
+            AssertAreEqualClosingAndOpened(panels);
+
+            // 非端起点での探索
+            panels = new Panels("Debug");
+            panels.Open(2, 1);
+            AssertAreEqualClosingAndOpened(panels);
+
+            // 隣接地雷数1以上のパネルを開いても周囲を開けない
+            panels = new Panels("Debug");
+            panels.Open(2, 2);
+            Assert.AreEqual(expected: 1, actual: panels.GetNumOpened());
+            Assert.AreEqual(expected: 24, actual: panels.GetNumClosing());
+
+            // 地雷パネルを開いても周囲を開けない
+            panels = new Panels("Debug");
+            panels.Open(3, 3);
+            Assert.AreEqual(expected: 1, actual: panels.GetNumOpened());
+            Assert.AreEqual(expected: 24, actual: panels.GetNumClosing());
+        }
+
+        private void AssertAreEqualClosingAndOpened(Panels panels)
+        {
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(0, 0));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(1, 0));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(2, 0));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(3, 0));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(4, 0));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(0, 1));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(1, 1));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(2, 1));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(3, 1));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(4, 1));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(0, 2));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(1, 2));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(2, 2));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(3, 2));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(4, 2));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(0, 3));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(1, 3));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(2, 3));
+            Assert.AreEqual(expected: Panel.PanelStatus.Closing, actual: panels.GetStatus(3, 3));
+            Assert.AreEqual(expected: Panel.PanelStatus.Closing, actual: panels.GetStatus(4, 3));
+            Assert.AreEqual(expected: Panel.PanelStatus.Closing, actual: panels.GetStatus(0, 4));
+            Assert.AreEqual(expected: Panel.PanelStatus.Closing, actual: panels.GetStatus(1, 4));
+            Assert.AreEqual(expected: Panel.PanelStatus.Closing, actual: panels.GetStatus(2, 4));
+            Assert.AreEqual(expected: Panel.PanelStatus.Closing, actual: panels.GetStatus(3, 4));
+            Assert.AreEqual(expected: Panel.PanelStatus.Closing, actual: panels.GetStatus(4, 4));
+        }
     }
 }
