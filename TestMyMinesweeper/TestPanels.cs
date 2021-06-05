@@ -44,6 +44,23 @@ namespace TestMyMinesweeper
         }
 
         [TestMethod]
+        public void TestOpenTouchedPanelsWhenPanelNotNearMine0Open()
+        {
+            // 隣接地雷数0のパネルを開いた際、周囲1マス範囲のパネルを開く
+            Panels panels = new Panels("Debug");
+            panels.Open(1, 1);
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(0, 0));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(1, 0));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(2, 0));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(0, 1));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(1, 1));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(2, 1));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(0, 2));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(1, 2));
+            Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(2, 2));
+        }
+
+        [TestMethod]
         public void TestAllPanelsNearNotMineOpenWhenPanelNearMine0Open()
         {
             // ■■■■■

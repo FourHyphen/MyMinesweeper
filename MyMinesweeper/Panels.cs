@@ -135,7 +135,35 @@ namespace MyMinesweeper
 
         public void Open(int x, int y)
         {
-            PanelList[CalcIndex(x, y)].Open();
+            int index = CalcIndex(x, y);
+            PanelList[index].Open();
+            if (!IsMine(x, y) && NumNearMineList[index] == 0)
+            {
+                OpenAroundPanelsNearNotMine(x, y);
+            }
+        }
+
+        private void OpenAroundPanelsNearNotMine(int x, int y)
+        {
+            for (int j = -1; j <= 1; j++)
+            {
+                int nowY = y + j;
+                if (nowY < 0 || nowY >= Height)
+                {
+                    continue;
+                }
+
+                for (int i = -1; i <= 1; i++)
+                {
+                    int nowX = x + i;
+                    if (nowX < 0 || nowX >= Width)
+                    {
+                        continue;
+                    }
+
+                    PanelList[CalcIndex(nowX, nowY)].Open();
+                }
+            }
         }
 
         private int CalcIndex(int x, int y)
