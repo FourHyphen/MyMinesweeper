@@ -161,7 +161,15 @@ namespace MyMinesweeper
                         continue;
                     }
 
-                    PanelList[CalcIndex(nowX, nowY)].Open();
+                    int now = CalcIndex(nowX, nowY);
+                    if (PanelList[now].Status == Panel.PanelStatus.Closing)
+                    {
+                        PanelList[now].Open();
+                        if (NumNearMineList[now] == 0)
+                        {
+                            OpenAroundPanelsNearNotMine(nowX, nowY);
+                        }
+                    }
                 }
             }
         }
