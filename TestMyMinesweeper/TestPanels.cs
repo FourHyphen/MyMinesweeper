@@ -105,11 +105,16 @@ namespace TestMyMinesweeper
             Assert.AreEqual(expected: 15, actual: panels.GetNumMine());
 
             // パネルをランダムで生成していることの確認
+            DoCreatePanelsAtRandom();
+        }
+
+        private void DoCreatePanelsAtRandom()
+        {
             // Panels生成して同じ位置をOpenを繰り返したとき、閉じているパネル数が完全一致するなら固定配置を生成しているのでNGとする
             List<int> closings = new List<int>();
             for (int i = 0; i < 100; i++)
             {
-                panels = PanelsFactory.Create("Easy");
+                Panels panels = PanelsFactory.Create("Easy");
                 panels.Open(1, 1);
                 closings.Add(panels.GetNumClosing());
             }
