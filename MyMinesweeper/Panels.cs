@@ -61,8 +61,7 @@ namespace MyMinesweeper
             {
                 for (int x = 0; x < Width; x++)
                 {
-                    int index = y * Width + x;
-                    if (PanelList[index].IsMine)
+                    if (PanelList[CalcIndex(x, y)].IsMine)
                     {
                         NumNearMineList.Add(-1);
                         continue;
@@ -76,7 +75,7 @@ namespace MyMinesweeper
 
         private int Filter3x3(Func<int, int, int> func, int x, int y)
         {
-            int t = 0;
+            int ret = 0;
             for (int j = -1; j <= 1; j++)
             {
                 int nowY = y + j;
@@ -93,11 +92,11 @@ namespace MyMinesweeper
                         continue;
                     }
 
-                    t += func(nowX, nowY);
+                    ret += func(nowX, nowY);
                 }
             }
 
-            return t;
+            return ret;
         }
 
         private int CountMine(int x, int y)
