@@ -48,7 +48,7 @@ namespace MyMinesweeper
 
         private void StartGame(string gameMode, int panelSize)
         {
-            Panels = new Panels(gameMode);
+            Panels = PanelsFactory.Create(gameMode);
             CreateGameAreaDisplay(panelSize);
             GameAreaDisplay.Update(Panels);
         }

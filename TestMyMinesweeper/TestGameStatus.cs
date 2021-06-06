@@ -10,7 +10,7 @@ namespace TestMyMinesweeper
         [TestMethod]
         public void TestGameOverWhenPanelOpenedIsMine()
         {
-            Panels panels = new Panels("Debug");
+            Panels panels = PanelsFactory.Create("Debug");
             Assert.IsFalse(GameStatus.IsGameOver(panels));
 
             // 非地雷パネルのオープンチェック
@@ -28,7 +28,7 @@ namespace TestMyMinesweeper
         [TestMethod]
         public void TestGameClearWhenAllPanelOpenWithoutMine()
         {
-            Panels panels = new Panels("Debug");
+            Panels panels = PanelsFactory.Create("Debug");
             Assert.IsFalse(GameStatus.IsGameClear(panels));
 
             panels.Open(0, 0); panels.Open(1, 0); panels.Open(2, 0); panels.Open(3, 0); panels.Open(4, 0);
@@ -49,13 +49,13 @@ namespace TestMyMinesweeper
         public void TestGameFinishWhenGameOverOrGameClear()
         {
             // ゲームオーバー
-            Panels panels = new Panels("Debug");
+            Panels panels = PanelsFactory.Create("Debug");
             Assert.IsFalse(GameStatus.IsGameFinished(panels));
             panels.Open(0, 4);
             Assert.IsTrue(GameStatus.IsGameFinished(panels));
 
             // ゲームクリア
-            panels = new Panels("Debug");
+            panels = PanelsFactory.Create("Debug");
             panels.Open(0, 0); panels.Open(1, 0); panels.Open(2, 0); panels.Open(3, 0); panels.Open(4, 0);
             panels.Open(0, 1); panels.Open(1, 1); panels.Open(2, 1); panels.Open(3, 1); panels.Open(4, 1);
             panels.Open(0, 2); panels.Open(1, 2); panels.Open(2, 2); panels.Open(3, 2); panels.Open(4, 2);

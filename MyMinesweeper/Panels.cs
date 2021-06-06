@@ -5,54 +5,17 @@ namespace MyMinesweeper
 {
     public class Panels
     {
-        private List<Panel> PanelList { get; set; } = new List<Panel>();
+        private List<Panel> PanelList { get; set; }
         private List<int> NumNearMineList { get; set; } = new List<int>();
-        public int Width { get; private set; }
-        public int Height { get; private set; }
+        public int Width { get; }
+        public int Height { get; }
 
-        public Panels(string gameMode)
+        public Panels(List<Panel> panelList, int width, int height)
         {
-            Init(gameMode);
-        }
-
-        private void Init(string gameMode)
-        {
-            if (gameMode.ToLower() == "debug")
-            {
-                InitDebug();
-            }
-            else if (gameMode.ToLower() == "debug2")
-            {
-                InitDebug2();
-            }
-
+            PanelList = panelList;
+            Width = width;
+            Height = height;
             InitNumNearMineList();
-        }
-
-        private void InitDebug()
-        {
-            Width = 5;
-            Height = 5;
-            Panel plain = new Panel(false);
-            Panel mine = new Panel(true);
-            PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone());    // ■■■■■
-            PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone());    // ■■■■■
-            PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone());    // ■■■■■
-            PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone()); PanelList.Add(mine.Clone()); PanelList.Add(plain.Clone());     // ■■■★■
-            PanelList.Add(mine.Clone()); PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone()); PanelList.Add(plain.Clone());     // ★■■■■
-        }
-
-        private void InitDebug2()
-        {
-            Width = 6;
-            Height = 5;
-            Panel p = new Panel(false);
-            Panel m = new Panel(true);
-            PanelList.Add(p.Clone()); PanelList.Add(p.Clone()); PanelList.Add(m.Clone()); PanelList.Add(m.Clone()); PanelList.Add(m.Clone()); PanelList.Add(p.Clone());    // ０１★★★１
-            PanelList.Add(p.Clone()); PanelList.Add(p.Clone()); PanelList.Add(p.Clone()); PanelList.Add(p.Clone()); PanelList.Add(p.Clone()); PanelList.Add(p.Clone());    // １３５６５３
-            PanelList.Add(p.Clone()); PanelList.Add(m.Clone()); PanelList.Add(m.Clone()); PanelList.Add(m.Clone()); PanelList.Add(m.Clone()); PanelList.Add(m.Clone());    // ２★★★★★
-            PanelList.Add(p.Clone()); PanelList.Add(m.Clone()); PanelList.Add(p.Clone()); PanelList.Add(m.Clone()); PanelList.Add(p.Clone()); PanelList.Add(m.Clone());    // ３★７★８★
-            PanelList.Add(p.Clone()); PanelList.Add(m.Clone()); PanelList.Add(p.Clone()); PanelList.Add(m.Clone()); PanelList.Add(m.Clone()); PanelList.Add(m.Clone());    // ２★４★★★
         }
 
         private void InitNumNearMineList()

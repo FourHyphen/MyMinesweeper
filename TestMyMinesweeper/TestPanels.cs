@@ -10,7 +10,7 @@ namespace TestMyMinesweeper
         [TestMethod]
         public void TestInitDebugMode()
         {
-            Panels panels = new Panels("Debug");
+            Panels panels = PanelsFactory.Create("Debug");
             Assert.AreEqual(expected: 25, actual: panels.GetNumClosing());
             Assert.AreEqual(expected: 2, actual: panels.GetNumMine());
             Assert.AreEqual(expected: 0, actual: panels.GetNumOpened());
@@ -24,7 +24,7 @@ namespace TestMyMinesweeper
             // ２★★★★★
             // ３★７★８★
             // ２★４★★★
-            Panels panels = new Panels("Debug2");
+            Panels panels = PanelsFactory.Create("Debug2");
 
             Assert.AreEqual(expected: 0, actual: panels.GetNumNearMine(0, 0));
             Assert.AreEqual(expected: 1, actual: panels.GetNumNearMine(1, 0));
@@ -47,7 +47,7 @@ namespace TestMyMinesweeper
         public void TestOpenTouchedPanelsWhenPanelNotNearMine0Open()
         {
             // 隣接地雷数0のパネルを開いた際、周囲1マス範囲のパネルを開く
-            Panels panels = new Panels("Debug");
+            Panels panels = PanelsFactory.Create("Debug");
             panels.Open(1, 1);
             Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(0, 0));
             Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(1, 0));
@@ -69,28 +69,28 @@ namespace TestMyMinesweeper
             // ■■■★■
             // ★■■■■
             // 左上起点での探索
-            Panels panels = new Panels("Debug");
+            Panels panels = PanelsFactory.Create("Debug");
             panels.Open(0, 0);
             AssertAreEqualClosingAndOpened(panels);
 
             // 右上起点での探索
-            panels = new Panels("Debug");
+            panels = PanelsFactory.Create("Debug");
             panels.Open(4, 0);
             AssertAreEqualClosingAndOpened(panels);
 
             // 非端起点での探索
-            panels = new Panels("Debug");
+            panels = PanelsFactory.Create("Debug");
             panels.Open(2, 1);
             AssertAreEqualClosingAndOpened(panels);
 
             // 隣接地雷数1以上のパネルを開いても周囲を開けない
-            panels = new Panels("Debug");
+            panels = PanelsFactory.Create("Debug");
             panels.Open(2, 2);
             Assert.AreEqual(expected: 1, actual: panels.GetNumOpened());
             Assert.AreEqual(expected: 24, actual: panels.GetNumClosing());
 
             // 地雷パネルを開いても周囲を開けない
-            panels = new Panels("Debug");
+            panels = PanelsFactory.Create("Debug");
             panels.Open(3, 3);
             Assert.AreEqual(expected: 1, actual: panels.GetNumOpened());
             Assert.AreEqual(expected: 24, actual: panels.GetNumClosing());
