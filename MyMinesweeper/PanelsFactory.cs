@@ -57,11 +57,11 @@ namespace MyMinesweeper
             {
                 if (i < mineNum)
                 {
-                    panelList.Add(mine);
+                    panelList.Add(mine.Clone());
                 }
                 else
                 {
-                    panelList.Add(plain);
+                    panelList.Add(plain.Clone());
                 }
             }
 
