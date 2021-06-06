@@ -11,7 +11,11 @@ namespace MyMinesweeper
         public static Panels Create(string mode)
         {
             string modeLower = mode.ToLower();
-            if (modeLower == "debug")
+            if (modeLower == "easy")
+            {
+                return CreateEasy();
+            }
+            else if (modeLower == "debug")
             {
                 return CreateDebug();
             }
@@ -21,6 +25,33 @@ namespace MyMinesweeper
             }
 
             return null;
+        }
+
+        private static Panels CreateEasy()
+        {
+            List<Panel> panelList = new List<Panel>();
+            Panel plain = new Panel(false);
+            Panel mine = new Panel(true);
+
+            int width = 9;
+            int height = 9;
+            int mineNum = 15;
+            for (int i = 0; i < width * height; i++)
+            {
+                if (i < mineNum)
+                {
+                    panelList.Add(mine);
+                }
+                else
+                {
+                    panelList.Add(plain);
+                }
+            }
+
+            // シャッフル参考: https://dobon.net/vb/dotnet/programing/arrayshuffle.html
+            List<Panel> panelListRandom = panelList.OrderBy(i => Guid.NewGuid()).ToList();
+
+            return CreateCore(panelListRandom, 9, 9);
         }
 
         private static Panels CreateDebug()
