@@ -205,6 +205,20 @@ namespace TestMyMinesweeper
             Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpened(1));
         }
 
+        [TestMethod]
+        public void TestStartGameEasyMode()
+        {
+            int panelSize = 20;
+            MainWindowDriver.StartGame("Easy", panelSize);
+
+            Assert.AreEqual(expected: 81, actual: InformationAreaDriver.GetNumPanelClosing());
+            Assert.AreEqual(expected: 0, actual: InformationAreaDriver.GetNumPanelOpened());
+            Assert.AreEqual(expected: 15, actual: InformationAreaDriver.GetNumMine());
+            Assert.AreEqual(expected: 81, actual: GameAreaDriver.GetNumPanelClosing());
+            Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelOpened());
+            Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelOpened(0));
+        }
+
         private void OpenAllWithoutMine(int panelSize)
         {
             for (int i = 0; i < 5; i++)
