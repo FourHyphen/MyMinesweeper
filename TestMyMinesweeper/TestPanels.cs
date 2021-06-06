@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyMinesweeper;
 
@@ -121,7 +122,7 @@ namespace TestMyMinesweeper
 
         private void DoCreatePanelsAtRandom()
         {
-            // Panels生成して同じ位置をOpenを繰り返したとき、閉じているパネル数が完全一致するなら固定配置を生成しているのでNGとする
+            // Panels生成して同じ位置をOpenを繰り返したとき、閉じているパネル数にばらつきがあるならランダム生成しているのでOKとする
             List<int> closings = new List<int>();
             for (int i = 0; i < 100; i++)
             {
@@ -129,8 +130,8 @@ namespace TestMyMinesweeper
                 panels.Open(1, 1);
                 closings.Add(panels.GetNumClosing());
             }
-            closings.Sort();
-            Assert.IsTrue(closings[0] != closings[99]);
+            List<int> distinct = closings.Distinct().ToList();
+            Assert.IsTrue(distinct.Count >= 10);    // 10種類もあればランダムだろう
         }
 
         private void AssertAreEqualClosingAndOpened(Panels panels)
