@@ -108,6 +108,17 @@ namespace TestMyMinesweeper
             DoCreatePanelsAtRandom();
         }
 
+        [TestMethod]
+        public void TestNormalMode()
+        {
+            Panels panels = PanelsFactory.Create("Normal");
+            Assert.AreEqual(expected: 225, actual: panels.GetNumClosing());
+            Assert.AreEqual(expected: 57, actual: panels.GetNumMine());
+
+            // パネルをランダムで生成していることの確認
+            DoCreatePanelsAtRandom();
+        }
+
         private void DoCreatePanelsAtRandom()
         {
             // Panels生成して同じ位置をOpenを繰り返したとき、閉じているパネル数が完全一致するなら固定配置を生成しているのでNGとする

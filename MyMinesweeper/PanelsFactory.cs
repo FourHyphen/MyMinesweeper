@@ -15,6 +15,10 @@ namespace MyMinesweeper
             {
                 return CreateEasy();
             }
+            else if (modeLower == "normal")
+            {
+                return CreateNormal();
+            }
             else if (modeLower == "debug")
             {
                 return CreateDebug();
@@ -30,6 +34,11 @@ namespace MyMinesweeper
         private static Panels CreateEasy()
         {
             return CreateCore(9, 9, 15);
+        }
+
+        private static Panels CreateNormal()
+        {
+            return CreateCore(15, 15, 57);
         }
 
         private static Panels CreateCore(int width, int height, int mineNum)
