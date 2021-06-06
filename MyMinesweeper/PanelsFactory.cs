@@ -29,13 +29,21 @@ namespace MyMinesweeper
 
         private static Panels CreateEasy()
         {
+            return CreateCore(9, 9, 15);
+        }
+
+        private static Panels CreateCore(int width, int height, int mineNum)
+        {
+            List<Panel> panelList = CreatePanelListAtRandom(width, height, mineNum);
+            return new Panels(panelList, width, height);
+        }
+
+        private static List<Panel> CreatePanelListAtRandom(int width, int height, int mineNum)
+        {
             List<Panel> panelList = new List<Panel>();
             Panel plain = new Panel(false);
             Panel mine = new Panel(true);
 
-            int width = 9;
-            int height = 9;
-            int mineNum = 15;
             for (int i = 0; i < width * height; i++)
             {
                 if (i < mineNum)
@@ -49,9 +57,7 @@ namespace MyMinesweeper
             }
 
             // シャッフル参考: https://dobon.net/vb/dotnet/programing/arrayshuffle.html
-            List<Panel> panelListRandom = panelList.OrderBy(i => Guid.NewGuid()).ToList();
-
-            return CreateCore(panelListRandom, 9, 9);
+            return panelList.OrderBy(i => Guid.NewGuid()).ToList();
         }
 
         private static Panels CreateDebug()
