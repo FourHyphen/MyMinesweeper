@@ -68,34 +68,46 @@ namespace MyMinesweeper
                         continue;
                     }
 
-                    int nearMineNum = 0;
-                    for (int j = -1; j <= 1; j++)
-                    {
-                        int nowY = y + j;
-                        if (nowY < 0 || nowY >= Height)
-                        {
-                            continue;
-                        }
-
-                        for (int i = -1; i <= 1; i++)
-                        {
-                            int nowX = x + i;
-                            if (nowX < 0 || nowX >= Width)
-                            {
-                                continue;
-                            }
-
-                            int nowIndex = nowY * Width + nowX;
-                            if (PanelList[nowIndex].IsMine)
-                            {
-                                nearMineNum++;
-                            }
-                        }
-                    }
-
+                    int nearMineNum = Filter3x3(CountMine, x, y);
                     NumNearMineList.Add(nearMineNum);
                 }
             }
+        }
+
+        private int Filter3x3(Func<int, int, int> func, int x, int y)
+        {
+            int t = 0;
+            for (int j = -1; j <= 1; j++)
+            {
+                int nowY = y + j;
+                if (nowY < 0 || nowY >= Height)
+                {
+                    continue;
+                }
+
+                for (int i = -1; i <= 1; i++)
+                {
+                    int nowX = x + i;
+                    if (nowX < 0 || nowX >= Width)
+                    {
+                        continue;
+                    }
+
+                    t += func(nowX, nowY);
+                }
+            }
+
+            return t;
+        }
+
+        private int CountMine(int x, int y)
+        {
+            int index = CalcIndex(x, y);
+            if (PanelList[index].IsMine)
+            {
+                return 1;
+            }
+            return 0;
         }
 
         public int GetNumClosing()
@@ -145,33 +157,22 @@ namespace MyMinesweeper
 
         private void OpenAroundPanelsNearNotMine(int x, int y)
         {
-            for (int j = -1; j <= 1; j++)
+            Filter3x3(OpenRecursively, x, y);
+        }
+
+        private int OpenRecursively(int x, int y)
+        {
+            int index = CalcIndex(x, y);
+            if (PanelList[index].Status == Panel.PanelStatus.Closing)
             {
-                int nowY = y + j;
-                if (nowY < 0 || nowY >= Height)
+                PanelList[index].Open();
+                if (NumNearMineList[index] == 0)
                 {
-                    continue;
-                }
-
-                for (int i = -1; i <= 1; i++)
-                {
-                    int nowX = x + i;
-                    if (nowX < 0 || nowX >= Width)
-                    {
-                        continue;
-                    }
-
-                    int now = CalcIndex(nowX, nowY);
-                    if (PanelList[now].Status == Panel.PanelStatus.Closing)
-                    {
-                        PanelList[now].Open();
-                        if (NumNearMineList[now] == 0)
-                        {
-                            OpenAroundPanelsNearNotMine(nowX, nowY);
-                        }
-                    }
+                    OpenAroundPanelsNearNotMine(x, y);
                 }
             }
+
+            return 0;
         }
 
         private int CalcIndex(int x, int y)
