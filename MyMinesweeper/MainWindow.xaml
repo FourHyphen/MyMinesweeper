@@ -11,7 +11,10 @@
             <Menu x:Name="Menu"
                   DockPanel.Dock="Top">
                 <MenuItem Header="ゲーム(_G)">
-                    <MenuItem Header="開始(_S)" Click="MenuGameStartClick" />
+                    <MenuItem Header="開始(_S)">
+                        <MenuItem Header="Easy" Click="MenuGameStartEasyClick"/>
+                        <MenuItem Header="Normal" Click="MenuGameStartNormalClick"/>
+                    </MenuItem>
                 </MenuItem>
             </Menu>
 

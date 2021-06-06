@@ -41,9 +41,14 @@ namespace MyMinesweeper
             Environment.CurrentDirectory = environmentDirPath;
         }
 
-        private void MenuGameStartClick(object sender, RoutedEventArgs e)
+        private void MenuGameStartEasyClick(object sender, RoutedEventArgs e)
         {
-            StartGame("Debug", 20);
+            StartGame("Easy", 20);
+        }
+
+        private void MenuGameStartNormalClick(object sender, RoutedEventArgs e)
+        {
+            StartGame("Normal", 20);
         }
 
         private void StartGame(string gameMode, int panelSize)
