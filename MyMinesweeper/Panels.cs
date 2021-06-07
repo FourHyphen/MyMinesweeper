@@ -74,12 +74,18 @@ namespace MyMinesweeper
 
         public int GetNumClosing()
         {
-            return GetNumPanel(Panel.PanelStatus.Closing);
+            int num = GetNumPanel(Panel.PanelStatus.Closing);
+            return num + GetNumPanel(Panel.PanelStatus.Flag);
         }
 
         public int GetNumOpened()
         {
             return GetNumPanel(Panel.PanelStatus.Opened);
+        }
+
+        public int GetNumFlag()
+        {
+            return GetNumPanel(Panel.PanelStatus.Flag);
         }
 
         private int GetNumPanel(Panel.PanelStatus status)
@@ -109,15 +115,25 @@ namespace MyMinesweeper
 
         public void Open(int x, int y)
         {
+            if (PanelList[CalcIndex(x, y)].Status == Panel.PanelStatus.Flag)
+            {
+                return;
+            }
+
+            OpenAroundPanelsNearNotMine(x, y);
+        }
+
+        private void OpenAroundPanelsNearNotMine(int x, int y)
+        {
             int index = CalcIndex(x, y);
             PanelList[index].Open();
             if (!IsMine(x, y) && NumNearMineList[index] == 0)
             {
-                OpenAroundPanelsNearNotMine(x, y);
+                OpenAroundPanelsNearNotMineCore(x, y);
             }
         }
 
-        private void OpenAroundPanelsNearNotMine(int x, int y)
+        private void OpenAroundPanelsNearNotMineCore(int x, int y)
         {
             Filter3x3(OpenRecursively, x, y);
         }
@@ -125,12 +141,13 @@ namespace MyMinesweeper
         private int OpenRecursively(int x, int y)
         {
             int index = CalcIndex(x, y);
-            if (PanelList[index].Status == Panel.PanelStatus.Closing)
+            Panel.PanelStatus status = PanelList[index].Status;
+            if (status == Panel.PanelStatus.Closing || status == Panel.PanelStatus.Flag)
             {
                 PanelList[index].Open();
                 if (NumNearMineList[index] == 0)
                 {
-                    OpenAroundPanelsNearNotMine(x, y);
+                    OpenAroundPanelsNearNotMineCore(x, y);
                 }
             }
 
@@ -140,6 +157,11 @@ namespace MyMinesweeper
         private int CalcIndex(int x, int y)
         {
             return y * Width + x;
+        }
+
+        public void AddFlag(int x, int y)
+        {
+            PanelList[CalcIndex(x, y)].AddFlag();
         }
 
         public bool IsOpenedPanelMine()

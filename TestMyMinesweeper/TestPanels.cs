@@ -120,6 +120,30 @@ namespace TestMyMinesweeper
             DoCreatePanelsAtRandom();
         }
 
+        [TestMethod]
+        public void TestPanelOfFlag()
+        {
+            Panels panels = PanelsFactory.Create("Debug");
+
+            // 旗を立てる
+            panels.AddFlag(0, 0);
+            Assert.AreEqual(expected: 25, actual: panels.GetNumClosing());
+            Assert.AreEqual(expected: 0, actual: panels.GetNumOpened());
+            Assert.AreEqual(expected: 1, actual: panels.GetNumFlag());
+
+            // 旗が立っているパネルは開けない
+            panels.Open(0, 0);
+            Assert.AreEqual(expected: 25, actual: panels.GetNumClosing());
+            Assert.AreEqual(expected: 0, actual: panels.GetNumOpened());
+            Assert.AreEqual(expected: 1, actual: panels.GetNumFlag());
+
+            // 隣接地雷数0のパネルをまとめて開く処理に巻き込まれる形であれば、旗パネルも開く
+            panels.Open(1, 1);
+            Assert.AreEqual(expected: 7, actual: panels.GetNumClosing());
+            Assert.AreEqual(expected: 18, actual: panels.GetNumOpened());
+            Assert.AreEqual(expected: 0, actual: panels.GetNumFlag());
+        }
+
         private void DoCreatePanelsAtRandom()
         {
             // Panels生成して同じ位置をOpenを繰り返したとき、閉じているパネル数にばらつきがあるならランダム生成しているのでOKとする

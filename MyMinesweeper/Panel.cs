@@ -30,5 +30,10 @@ namespace MyMinesweeper
         {
             Status = PanelStatus.Opened;
         }
+
+        public void AddFlag()
+        {
+            Status = PanelStatus.Flag;
+        }
     }
 }
