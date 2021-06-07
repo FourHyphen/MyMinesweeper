@@ -16,6 +16,10 @@ namespace TestMyMinesweeper
 
         private LabelAdapter NumMine { get; }
 
+        private LabelAdapter NumFlag { get; }
+
+        private LabelAdapter NumQuestion { get; }
+
         public InformationAreaDriver(dynamic mainWindow)
         {
             MainWindow = mainWindow;
@@ -23,6 +27,8 @@ namespace TestMyMinesweeper
             NumPanelClosing = new LabelAdapter("NumPanelClosing");
             NumPanelOpened = new LabelAdapter("NumPanelOpened");
             NumMine = new LabelAdapter("NumMine");
+            NumFlag = new LabelAdapter("NumFlag");
+            NumQuestion = new LabelAdapter("NumQuestion");
         }
 
         public int GetNumPanelClosing()
@@ -41,6 +47,18 @@ namespace TestMyMinesweeper
         {
             UpdateNowMainWindowStatus();
             return (int)NumMine.ContentNum(Tree);
+        }
+
+        public int GetNumPanelFlag()
+        {
+            UpdateNowMainWindowStatus();
+            return (int)NumFlag.ContentNum(Tree);
+        }
+
+        public int GetNumPanelQuestion()
+        {
+            UpdateNowMainWindowStatus();
+            return (int)NumQuestion.ContentNum(Tree);
         }
 
         private void UpdateNowMainWindowStatus()

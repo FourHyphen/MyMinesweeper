@@ -15,6 +15,10 @@ namespace TestMyMinesweeper
 
         private static string PanelNameOpenedNearMine = "OpenedNearMine";
 
+        private static string PanelNameFlag = "Flag";
+
+        private static string PanelNameQuestion = "Question";
+
         private dynamic MainWindow { get; }
 
         private IWPFDependencyObjectCollection<System.Windows.DependencyObject> Tree { get; set; }
@@ -46,6 +50,16 @@ namespace TestMyMinesweeper
         public int GetNumPanelOpened(int nearMineNum)
         {
             return GetDisplayNum(PanelNameOpened + nearMineNum.ToString());
+        }
+
+        public int GetNumPanelFlag()
+        {
+            return GetDisplayNum(PanelNameFlag);
+        }
+
+        public int GetNumPanelQuestion()
+        {
+            return GetDisplayNum(PanelNameQuestion);
         }
 
         private int GetDisplayNum(string panelName)
@@ -91,6 +105,11 @@ namespace TestMyMinesweeper
         public void MouseDown(System.Windows.Point p)
         {
             MainWindow.GameAreaMouseDown(p);
+        }
+
+        internal void SwitchMode(string mode)
+        {
+            //MainWindow.SwitchMode(mode);
         }
     }
 }
