@@ -7,7 +7,9 @@ namespace MyMinesweeper
         public enum PanelStatus
         {
             Closing,
-            Opened
+            Opened,
+            Flag,
+            Question
         }
 
         public PanelStatus Status { get; private set; } = PanelStatus.Closing;

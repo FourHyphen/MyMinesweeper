@@ -32,6 +32,10 @@ namespace MyMinesweeper
 
         public BitmapSource ImageOpenedNearMine8 { get; private set; }
 
+        public BitmapSource ImageFlag { get; private set; }
+
+        public BitmapSource ImageQuestion { get; private set; }
+
         public PanelImage(int panelSize)
         {
             ImageClosing = ImageProcess.GetShowImage("./Resource/Image/Closing.png", panelSize, panelSize);
@@ -45,6 +49,8 @@ namespace MyMinesweeper
             ImageOpenedNearMine6 = ImageProcess.GetShowImage("./Resource/Image/Opened6.png", panelSize, panelSize);
             ImageOpenedNearMine7 = ImageProcess.GetShowImage("./Resource/Image/Opened7.png", panelSize, panelSize);
             ImageOpenedNearMine8 = ImageProcess.GetShowImage("./Resource/Image/Opened8.png", panelSize, panelSize);
+            ImageFlag = ImageProcess.GetShowImage("./Resource/Image/Flag.png", panelSize, panelSize);
+            ImageQuestion = ImageProcess.GetShowImage("./Resource/Image/Question.png", panelSize, panelSize);
         }
 
         public Image CreateImage(Panel.PanelStatus status, bool isMine, int numNearMine)
@@ -54,6 +60,16 @@ namespace MyMinesweeper
             {
                 image.Source = ImageClosing;
                 image.Name = "Closing";
+            }
+            else if (status == Panel.PanelStatus.Flag)
+            {
+                image.Source = ImageFlag;
+                image.Name = "Flag";
+            }
+            else if (status == Panel.PanelStatus.Question)
+            {
+                image.Source = ImageQuestion;
+                image.Name = "Question";
             }
             else if (status == Panel.PanelStatus.Opened)
             {

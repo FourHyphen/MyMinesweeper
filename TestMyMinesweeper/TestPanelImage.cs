@@ -43,6 +43,12 @@ namespace TestMyMinesweeper
 
             Image openedMine = pi.CreateImage(MyMinesweeper.Panel.PanelStatus.Opened, true, 0);
             Assert.AreEqual(expected: "openedmine", actual: openedMine.Name.ToLower());
+
+            Image flag = pi.CreateImage(MyMinesweeper.Panel.PanelStatus.Flag, true, 0);
+            Assert.AreEqual(expected: "flag", actual: flag.Name.ToLower());
+
+            Image question = pi.CreateImage(MyMinesweeper.Panel.PanelStatus.Question, true, 0);
+            Assert.AreEqual(expected: "question", actual: question.Name.ToLower());
         }
 
         private void AreEqualImageNearMine(PanelImage pi, int nearMineNum)
