@@ -112,6 +112,7 @@ namespace MyMinesweeper
             {
                 Mode = "Open";
             }
+            GameMode.Content = Mode;
         }
     }
 }

@@ -47,25 +47,46 @@
 
                 <!--Status-->
                 <Grid Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0">
-                        <Label Content="未開放パネル数"/>
-                        <Label Content="総地雷数"/>
-                        <Label Content="開いたパネル数"/>
-                        <Label Content="旗"/>
-                        <Label Content="疑問符"/>
-                    </StackPanel>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Column="1">
-                        <Label x:Name="NumPanelClosing" Content="0"/>
-                        <Label x:Name="NumMine" Content="0"/>
-                        <Label x:Name="NumPanelOpened" Content="0"/>
-                        <Label x:Name="NumFlag" Content="0"/>
-                        <Label x:Name="NumQuestion" Content="0"/>
-                    </StackPanel>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <Label Content="未開放パネル数"/>
+                            <Label Content="総地雷数"/>
+                            <Label Content="開いたパネル数"/>
+                            <Label Content="旗"/>
+                            <Label Content="疑問符"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1">
+                            <Label x:Name="NumPanelClosing" Content="0"/>
+                            <Label x:Name="NumMine" Content="0"/>
+                            <Label x:Name="NumPanelOpened" Content="0"/>
+                            <Label x:Name="NumFlag" Content="0"/>
+                            <Label x:Name="NumQuestion" Content="0"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="0">
+                            <Label Content="Mode"/>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Label x:Name="GameMode" Content="Open"/>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
         </DockPanel>
