@@ -33,7 +33,18 @@ namespace MyMinesweeper
 
         public void AddFlag()
         {
-            Status = PanelStatus.Flag;
+            if (Status == PanelStatus.Flag)
+            {
+                Status = PanelStatus.Question;
+            }
+            else if (Status == PanelStatus.Question)
+            {
+                Status = PanelStatus.Closing;
+            }
+            else
+            {
+                Status = PanelStatus.Flag;
+            }
         }
     }
 }

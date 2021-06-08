@@ -144,6 +144,55 @@ namespace TestMyMinesweeper
             Assert.AreEqual(expected: 0, actual: panels.GetNumFlag());
         }
 
+        [TestMethod]
+        public void TestPanelOfQuestion()
+        {
+            Panels panels = PanelsFactory.Create("Debug");
+
+            // 旗が立っているパネルに更に旗を立てることで疑問符パネルにする
+            panels.AddFlag(0, 0);
+            panels.AddFlag(0, 0);
+            Assert.AreEqual(expected: 25, actual: panels.GetNumClosing());
+            Assert.AreEqual(expected: 0, actual: panels.GetNumOpened());
+            Assert.AreEqual(expected: 0, actual: panels.GetNumFlag());
+            Assert.AreEqual(expected: 1, actual: panels.GetNumQuestion());
+
+            // 疑問符パネルは開けない
+            panels.Open(0, 0);
+            Assert.AreEqual(expected: 25, actual: panels.GetNumClosing());
+            Assert.AreEqual(expected: 0, actual: panels.GetNumOpened());
+            Assert.AreEqual(expected: 0, actual: panels.GetNumFlag());
+            Assert.AreEqual(expected: 1, actual: panels.GetNumQuestion());
+
+            // 隣接地雷数0のパネルをまとめて開く処理に巻き込まれる形であれば、疑問符パネルも開く
+            panels.Open(1, 1);
+            Assert.AreEqual(expected: 7, actual: panels.GetNumClosing());
+            Assert.AreEqual(expected: 18, actual: panels.GetNumOpened());
+            Assert.AreEqual(expected: 0, actual: panels.GetNumFlag());
+            Assert.AreEqual(expected: 0, actual: panels.GetNumQuestion());
+
+            // 疑問符パネルに更に旗を立てることで、旗や疑問符を解除して開ける状態にする
+            panels = PanelsFactory.Create("Debug");
+            panels.AddFlag(0, 0);    // Flag
+            panels.AddFlag(0, 0);    // Question
+            panels.AddFlag(0, 0);    // 解除
+            panels.Open(1, 1);
+            Assert.AreEqual(expected: 7, actual: panels.GetNumClosing());
+            Assert.AreEqual(expected: 18, actual: panels.GetNumOpened());
+            Assert.AreEqual(expected: 0, actual: panels.GetNumFlag());
+            Assert.AreEqual(expected: 0, actual: panels.GetNumFlag());
+            Assert.AreEqual(expected: 0, actual: panels.GetNumQuestion());
+
+            // 残っているのが疑問符パネルのみの場合(= 全ての地雷パネルに疑問符をつけている場合)は全て開いたと判定する
+            panels.Open(4, 3);
+            panels.Open(1, 4);
+            panels.Open(2, 4);
+            panels.Open(3, 4);
+            panels.Open(4, 4);
+            Assert.AreEqual(expected: 23, actual: panels.GetNumOpened());
+            Assert.IsTrue(panels.IsAllOpenedPanelsWithoutMine());
+        }
+
         private void DoCreatePanelsAtRandom()
         {
             // Panels生成して同じ位置をOpenを繰り返したとき、閉じているパネル数にばらつきがあるならランダム生成しているのでOKとする

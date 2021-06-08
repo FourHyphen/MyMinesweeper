@@ -75,6 +75,7 @@ namespace MyMinesweeper
         public int GetNumClosing()
         {
             int num = GetNumPanel(Panel.PanelStatus.Closing);
+            num += GetNumPanel(Panel.PanelStatus.Question);
             return num + GetNumPanel(Panel.PanelStatus.Flag);
         }
 
@@ -86,6 +87,11 @@ namespace MyMinesweeper
         public int GetNumFlag()
         {
             return GetNumPanel(Panel.PanelStatus.Flag);
+        }
+
+        public int GetNumQuestion()
+        {
+            return GetNumPanel(Panel.PanelStatus.Question);
         }
 
         private int GetNumPanel(Panel.PanelStatus status)
@@ -115,7 +121,8 @@ namespace MyMinesweeper
 
         public void Open(int x, int y)
         {
-            if (PanelList[CalcIndex(x, y)].Status == Panel.PanelStatus.Flag)
+            Panel.PanelStatus status = PanelList[CalcIndex(x, y)].Status;
+            if (status == Panel.PanelStatus.Flag || status == Panel.PanelStatus.Question)
             {
                 return;
             }
@@ -142,7 +149,9 @@ namespace MyMinesweeper
         {
             int index = CalcIndex(x, y);
             Panel.PanelStatus status = PanelList[index].Status;
-            if (status == Panel.PanelStatus.Closing || status == Panel.PanelStatus.Flag)
+            if (status == Panel.PanelStatus.Closing ||
+                status == Panel.PanelStatus.Flag ||
+                status == Panel.PanelStatus.Question)
             {
                 PanelList[index].Open();
                 if (NumNearMineList[index] == 0)
