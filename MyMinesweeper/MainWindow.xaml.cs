@@ -24,6 +24,8 @@ namespace MyMinesweeper
 
         private GameAreaDisplay GameAreaDisplay { get; set; }
 
+        private string Mode { get; set; } = "Open";
+
         public MainWindow()
         {
             InitializeComponent();
@@ -84,8 +86,32 @@ namespace MyMinesweeper
         {
             int x = (int)(p.X / 20.0);
             int y = (int)(p.Y / 20.0);
-            Panels.Open(x, y);
+            if (Mode == "Open")
+            {
+                Panels.Open(x, y);
+            }
+            else if(Mode == "Flag")
+            {
+                Panels.AddFlag(x, y);
+            }
             GameAreaDisplay.Update(Panels);
+        }
+
+        private void GameAreaMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            SwitchMode();
+        }
+
+        private void SwitchMode()
+        {
+            if (Mode == "Open")
+            {
+                Mode = "Flag";
+            }
+            else
+            {
+                Mode = "Open";
+            }
         }
     }
 }

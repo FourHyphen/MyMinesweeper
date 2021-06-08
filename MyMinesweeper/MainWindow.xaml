@@ -27,7 +27,8 @@
                 <!--Game Area-->
                 <Grid x:Name="GameArea"
                       Column="0"
-                      MouseDown="GameAreaMouseDown">
+                      MouseDown="GameAreaMouseDown"
+                      MouseRightButtonDown="GameAreaMouseRightButtonDown">
                     <!--Play Result-->
                     <Grid x:Name="PlayResultArea"
                           HorizontalAlignment="Stretch"

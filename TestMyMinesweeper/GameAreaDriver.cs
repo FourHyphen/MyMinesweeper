@@ -34,7 +34,9 @@ namespace TestMyMinesweeper
 
         public int GetNumPanelClosing()
         {
-            return GetDisplayNum(PanelNameClosing);
+            int num = GetDisplayNum(PanelNameClosing);
+            num += GetDisplayNum(PanelNameFlag);
+            return num += GetDisplayNum(PanelNameQuestion);
         }
 
         public int GetNumPanelOpened()
@@ -107,9 +109,9 @@ namespace TestMyMinesweeper
             MainWindow.GameAreaMouseDown(p);
         }
 
-        internal void SwitchMode(string mode)
+        internal void SwitchMode()
         {
-            //MainWindow.SwitchMode(mode);
+            MainWindow.SwitchMode();
         }
     }
 }
