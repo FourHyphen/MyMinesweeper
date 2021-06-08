@@ -212,7 +212,7 @@ namespace TestMyMinesweeper
         {
             // Panels生成して同じ位置をOpenを繰り返したとき、閉じているパネル数にばらつきがあるならランダム生成しているのでOKとする
             List<int> closings = new List<int>();
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 200; i++)
             {
                 Panels panels = PanelsFactory.Create("Easy");
                 panels.Open(1, 1);
