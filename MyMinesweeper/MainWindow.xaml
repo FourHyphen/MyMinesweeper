@@ -55,12 +55,16 @@
                         <Label Content="未開放パネル数"/>
                         <Label Content="総地雷数"/>
                         <Label Content="開いたパネル数"/>
+                        <Label Content="旗"/>
+                        <Label Content="疑問符"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="1">
                         <Label x:Name="NumPanelClosing" Content="0"/>
                         <Label x:Name="NumMine" Content="0"/>
                         <Label x:Name="NumPanelOpened" Content="0"/>
+                        <Label x:Name="NumFlag" Content="0"/>
+                        <Label x:Name="NumQuestion" Content="0"/>
                     </StackPanel>
                 </Grid>
             </Grid>

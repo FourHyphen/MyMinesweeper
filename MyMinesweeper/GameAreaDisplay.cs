@@ -86,6 +86,8 @@ namespace MyMinesweeper
             Main.NumPanelClosing.Content = panels.GetNumClosing().ToString();
             Main.NumPanelOpened.Content = panels.GetNumOpened().ToString();
             Main.NumMine.Content = panels.GetNumMine().ToString();
+            Main.NumFlag.Content = panels.GetNumFlag().ToString();
+            Main.NumQuestion.Content = panels.GetNumQuestion().ToString();
         }
 
         private void DisplayGameFinish(Panels panels)
