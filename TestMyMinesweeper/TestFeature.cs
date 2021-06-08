@@ -240,6 +240,7 @@ namespace TestMyMinesweeper
 
             // 旗を立てる際はパネルを開かない
             GameAreaDriver.SwitchMode();    // Open -> Flag
+            Assert.AreEqual(expected: "Flag", actual: InformationAreaDriver.GetGameMode());
             GameAreaDriver.MouseDown(new System.Windows.Point(10, 10));
             Assert.AreEqual(expected: 25, actual: GameAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelOpened());
@@ -248,6 +249,7 @@ namespace TestMyMinesweeper
 
             // 旗が立っているパネルは開けない
             GameAreaDriver.SwitchMode();    // Flag -> Open
+            Assert.AreEqual(expected: "Open", actual: InformationAreaDriver.GetGameMode());
             GameAreaDriver.MouseDown(new System.Windows.Point(10, 10));
             Assert.AreEqual(expected: 25, actual: GameAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelOpened());
