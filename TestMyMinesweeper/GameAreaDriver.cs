@@ -109,9 +109,9 @@ namespace TestMyMinesweeper
             MainWindow.GameAreaMouseLeftButtonDown(p);
         }
 
-        internal void SwitchMode()
+        internal void MouseRightButtonDown(System.Windows.Point p)
         {
-            MainWindow.SwitchMode();
+            MainWindow.GameAreaMouseRightButtonDown(p);
         }
     }
 }

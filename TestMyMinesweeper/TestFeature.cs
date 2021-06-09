@@ -238,18 +238,16 @@ namespace TestMyMinesweeper
             int panelSize = 20;
             MainWindowDriver.StartGame("Debug", panelSize);
 
+            // メッセージ：左クリックでパネル開いて右クリックで旗立てるよう変更中
+
             // 旗を立てる際はパネルを開かない
-            GameAreaDriver.SwitchMode();    // Open -> Flag
-            Assert.AreEqual(expected: "Flag", actual: InformationAreaDriver.GetGameMode());
-            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(10, 10));
+            GameAreaDriver.MouseRightButtonDown(new System.Windows.Point(10, 10));
             Assert.AreEqual(expected: 25, actual: GameAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelFlag());
             Assert.AreEqual(expected: 1, actual: InformationAreaDriver.GetNumPanelFlag());
 
             // 旗が立っているパネルは開けない
-            GameAreaDriver.SwitchMode();    // Flag -> Open
-            Assert.AreEqual(expected: "Open", actual: InformationAreaDriver.GetGameMode());
             GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(10, 10));
             Assert.AreEqual(expected: 25, actual: GameAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelOpened());
@@ -257,8 +255,7 @@ namespace TestMyMinesweeper
             Assert.AreEqual(expected: 1, actual: InformationAreaDriver.GetNumPanelFlag());
 
             // 旗が立っているパネルに再度旗を立てることで疑問符を付けられる
-            GameAreaDriver.SwitchMode();    // Open -> Flag
-            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(10, 10));
+            GameAreaDriver.MouseRightButtonDown(new System.Windows.Point(10, 10));
             Assert.AreEqual(expected: 25, actual: GameAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelFlag());
@@ -266,50 +263,43 @@ namespace TestMyMinesweeper
             Assert.AreEqual(expected: 1, actual: InformationAreaDriver.GetNumPanelQuestion());
 
             // 疑問符パネルは開けない
-            GameAreaDriver.SwitchMode();    // Flag -> Open
             GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(10, 10));
             Assert.AreEqual(expected: 25, actual: GameAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelQuestion());
 
             // 疑問符パネルに再度旗を立てることで、通常の未開放パネルに戻る
-            GameAreaDriver.SwitchMode();    // Open -> Flag
-            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(10, 10));
+            GameAreaDriver.MouseRightButtonDown(new System.Windows.Point(10, 10));
             Assert.AreEqual(expected: 25, actual: GameAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelFlag());
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelQuestion());
 
             // 未開放パネルに戻れば、それを開くことができる
-            GameAreaDriver.SwitchMode();    // Flag -> Open
             GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(10, 10));
             Assert.AreEqual(expected: 7, actual: GameAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 18, actual: GameAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelFlag());
 
             // 地雷パネルにも旗を立てることができる
-            GameAreaDriver.SwitchMode();    // Open -> Flag
-            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(70, 70));
+            GameAreaDriver.MouseRightButtonDown(new System.Windows.Point(70, 70));
             Assert.AreEqual(expected: 7, actual: GameAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 18, actual: GameAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelFlag());
 
             // 地雷パネルでも旗が立っている場合は開けない -> ゲームオーバーにならない
-            GameAreaDriver.SwitchMode();    // Flag -> Open
-            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(70, 70));
+            GameAreaDriver.MouseRightButtonDown(new System.Windows.Point(70, 70));
             Assert.IsFalse(GameAreaDriver.IsShowingGameOver());
             Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelFlag());
 
             // 隣接地雷数0のパネルに旗および疑問符をつけている場合、まとめて開く処理に巻き込まれるのであれば開く
             MainWindowDriver.StartGame("Debug", panelSize);
-            GameAreaDriver.SwitchMode();    // Open -> Flag
-            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(30, 10));    // Flag
-            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(50, 10));
-            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(50, 10));    // Question
+            GameAreaDriver.MouseRightButtonDown(new System.Windows.Point(30, 10));    // Flag
+            GameAreaDriver.MouseRightButtonDown(new System.Windows.Point(50, 10));
+            GameAreaDriver.MouseRightButtonDown(new System.Windows.Point(50, 10));    // Question
             Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelFlag());
             Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelQuestion());
 
-            GameAreaDriver.SwitchMode();    // Flag -> Open
             GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(30, 30));
             Assert.AreEqual(expected: 7, actual: GameAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 18, actual: GameAreaDriver.GetNumPanelOpened());
