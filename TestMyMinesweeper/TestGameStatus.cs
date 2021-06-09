@@ -64,5 +64,16 @@ namespace TestMyMinesweeper
 
             Assert.IsTrue(GameStatus.IsGameFinished(panels));
         }
+
+        [TestMethod]
+        public void TestSwitchGameMode()
+        {
+            GameStatus gs = new GameStatus();
+            Assert.AreEqual(expected: GameStatus.GameMode.Open, actual: gs.GetMode());
+            gs.SwitchMode();
+            Assert.AreEqual(expected: GameStatus.GameMode.Flag, actual: gs.GetMode());
+            gs.SwitchMode();
+            Assert.AreEqual(expected: GameStatus.GameMode.Open, actual: gs.GetMode());
+        }
     }
 }
