@@ -22,8 +22,6 @@ namespace MyMinesweeper
     {
         private Panels Panels { get; set; }
 
-        private GameStatus GameStatus { get; set; }
-
         private GameAreaDisplay GameAreaDisplay { get; set; }
 
         public MainWindow()
@@ -56,9 +54,8 @@ namespace MyMinesweeper
         private void StartGame(string gameMode, int panelSize)
         {
             Panels = PanelsFactory.Create(gameMode);
-            GameStatus = new GameStatus();
             CreateGameAreaDisplay(panelSize);
-            GameAreaDisplay.Update(Panels, GameStatus);
+            GameAreaDisplay.Update(Panels);
         }
 
         private void CreateGameAreaDisplay(int panelSize)
@@ -87,27 +84,21 @@ namespace MyMinesweeper
         {
             int x = (int)(p.X / 20.0);
             int y = (int)(p.Y / 20.0);
-            if (GameStatus.GetMode() == GameStatus.GameMode.Open)
-            {
-                Panels.Open(x, y);
-            }
-            else if(GameStatus.GetMode() == GameStatus.GameMode.Flag)
-            {
-                Panels.AddFlag(x, y);
-            }
-
-            GameAreaDisplay.Update(Panels, GameStatus);
+            Panels.Open(x, y);
+            GameAreaDisplay.Update(Panels);
         }
 
         private void GameAreaMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            SwitchMode();
+            GameAreaMouseRightButtonDown(e.GetPosition(GameArea));
         }
 
-        private void SwitchMode()
+        private void GameAreaMouseRightButtonDown(System.Windows.Point p)
         {
-            GameStatus.SwitchMode();
-            GameAreaDisplay.Update(Panels, GameStatus);
+            int x = (int)(p.X / 20.0);
+            int y = (int)(p.Y / 20.0);
+            Panels.AddFlag(x, y);
+            GameAreaDisplay.Update(Panels);
         }
     }
 }

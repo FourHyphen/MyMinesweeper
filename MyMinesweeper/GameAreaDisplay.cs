@@ -29,11 +29,11 @@ namespace MyMinesweeper
             PanelsArea.Children.Clear();
         }
 
-        public void Update(Panels panels, GameStatus gameStatus)
+        public void Update(Panels panels)
         {
             UpdateGameArea(panels);
-            UpdateInformationArea(panels, gameStatus);
-            DisplayGameFinish(panels, gameStatus);
+            UpdateInformationArea(panels);
+            DisplayGameFinish(panels);
         }
 
         private void UpdateGameArea(Panels panels)
@@ -81,25 +81,24 @@ namespace MyMinesweeper
             return PanelImage.CreateImage(status, isMine, numNearMine);
         }
 
-        private void UpdateInformationArea(Panels panels, GameStatus gameStatus)
+        private void UpdateInformationArea(Panels panels)
         {
             Main.NumPanelClosing.Content = panels.GetNumClosing().ToString();
             Main.NumPanelOpened.Content = panels.GetNumOpened().ToString();
             Main.NumMine.Content = panels.GetNumMine().ToString();
             Main.NumFlag.Content = panels.GetNumFlag().ToString();
             Main.NumQuestion.Content = panels.GetNumQuestion().ToString();
-            Main.GameMode.Content = gameStatus.GetMode().ToString();
         }
 
-        private void DisplayGameFinish(Panels panels, GameStatus gameStatus)
+        private void DisplayGameFinish(Panels panels)
         {
-            if (gameStatus.IsGameOver(panels))
+            if (GameStatus.IsGameOver(panels))
             {
                 Main.PlayResultArea.Visibility = System.Windows.Visibility.Visible;
                 Main.PlayResultLabel.Content = "GameOver....";
                 Main.PlayResultArea.Background = System.Windows.Media.Brushes.Red;
             }
-            else if (gameStatus.IsGameClear(panels))
+            else if (GameStatus.IsGameClear(panels))
             {
                 Main.PlayResultArea.Visibility = System.Windows.Visibility.Visible;
                 Main.PlayResultLabel.Content = "GameClear!";
