@@ -27,7 +27,7 @@
                 <!--Game Area-->
                 <Grid x:Name="GameArea"
                       Column="0"
-                      MouseDown="GameAreaMouseDown"
+                      MouseLeftButtonDown="GameAreaMouseLeftButtonDown"
                       MouseRightButtonDown="GameAreaMouseRightButtonDown">
                     <!--Play Result-->
                     <Grid x:Name="PlayResultArea"

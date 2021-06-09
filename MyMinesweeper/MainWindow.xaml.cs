@@ -70,7 +70,7 @@ namespace MyMinesweeper
             GameAreaDisplay = new GameAreaDisplay(this, panelSize);
         }
 
-        private void GameAreaMouseDown(object sender, MouseButtonEventArgs e)
+        private void GameAreaMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             GameAreaMouseDown(e.GetPosition(GameArea));
         }
