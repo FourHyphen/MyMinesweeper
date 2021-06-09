@@ -72,18 +72,18 @@ namespace MyMinesweeper
 
         private void GameAreaMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            GameAreaMouseDown(e.GetPosition(GameArea));
+            GameAreaMouseLeftButtonDown(e.GetPosition(GameArea));
         }
 
-        private void GameAreaMouseDown(System.Windows.Point p)
+        private void GameAreaMouseLeftButtonDown(System.Windows.Point p)
         {
             if (!GameStatus.IsGameFinished(Panels))
             {
-                GameAreaMouseDownCore(p);
+                GameAreaMouseLeftButtonDownCore(p);
             }
         }
 
-        private void GameAreaMouseDownCore(System.Windows.Point p)
+        private void GameAreaMouseLeftButtonDownCore(System.Windows.Point p)
         {
             int x = (int)(p.X / 20.0);
             int y = (int)(p.Y / 20.0);

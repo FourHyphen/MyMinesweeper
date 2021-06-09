@@ -104,9 +104,9 @@ namespace TestMyMinesweeper
             return PlayResultLabel.Content(Tree).ToLower().Contains("clear");
         }
 
-        public void MouseDown(System.Windows.Point p)
+        public void MouseLeftButtonDown(System.Windows.Point p)
         {
-            MainWindow.GameAreaMouseDown(p);
+            MainWindow.GameAreaMouseLeftButtonDown(p);
         }
 
         internal void SwitchMode()

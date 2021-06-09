@@ -74,7 +74,7 @@ namespace TestMyMinesweeper
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelOpened());
 
             // ゲームオーバー時の表示内容確認
-            GameAreaDriver.MouseDown(new System.Windows.Point(70, 70));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(70, 70));
             Assert.IsTrue(GameAreaDriver.IsShowingGameOver());
             Assert.AreEqual(expected: 24, actual: InformationAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 1, actual: InformationAreaDriver.GetNumPanelOpened());
@@ -83,7 +83,7 @@ namespace TestMyMinesweeper
             Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpened());
 
             // ゲームオーバー後にそのゲームをプレイできないことの確認
-            GameAreaDriver.MouseDown(new System.Windows.Point(10, 10));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(10, 10));
             Assert.AreEqual(expected: 24, actual: GameAreaDriver.GetNumPanelClosing());
         }
 
@@ -106,7 +106,7 @@ namespace TestMyMinesweeper
             Assert.IsTrue(GameAreaDriver.IsShowingGameClear());
 
             // ゲームクリア後にそのゲームをプレイできないことの確認
-            GameAreaDriver.MouseDown(new System.Windows.Point(70, 70));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(70, 70));
             Assert.AreEqual(expected: 23, actual: GameAreaDriver.GetNumPanelOpened());
         }
 
@@ -147,8 +147,8 @@ namespace TestMyMinesweeper
             MainWindowDriver.StartGame("Debug", panelSize);
             Assert.IsFalse(GameAreaDriver.IsShowingGameOver());
 
-            GameAreaDriver.MouseDown(new System.Windows.Point(70, 50));    // 非地雷パネル数のリセットチェックのためにオープン
-            GameAreaDriver.MouseDown(new System.Windows.Point(70, 70));    // 地雷
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(70, 50));    // 非地雷パネル数のリセットチェックのためにオープン
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(70, 70));    // 地雷
             Assert.IsTrue(GameAreaDriver.IsShowingGameOver());
             Assert.AreEqual(expected: 23, actual: InformationAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 2, actual: InformationAreaDriver.GetNumPanelOpened());
@@ -172,34 +172,34 @@ namespace TestMyMinesweeper
             MainWindowDriver.StartGame("Debug", panelSize);
 
             // 角から探索開始(1)
-            GameAreaDriver.MouseDown(new System.Windows.Point(10, 10));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(10, 10));
             Assert.AreEqual(expected: 7, actual: InformationAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 18, actual: InformationAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 6, actual: GameAreaDriver.GetNumPanelOpened(1));
 
             // 角から探索開始(2)
             MainWindowDriver.StartGame("Debug", panelSize);
-            GameAreaDriver.MouseDown(new System.Windows.Point(90, 10));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(90, 10));
             Assert.AreEqual(expected: 7, actual: InformationAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 18, actual: InformationAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 6, actual: GameAreaDriver.GetNumPanelOpened(1));
 
             // 角以外から探索開始
             MainWindowDriver.StartGame("Debug", panelSize);
-            GameAreaDriver.MouseDown(new System.Windows.Point(30, 30));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(30, 30));
             Assert.AreEqual(expected: 7, actual: InformationAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 18, actual: InformationAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 6, actual: GameAreaDriver.GetNumPanelOpened(1));
 
             // 地雷パネルに隣接しているパネルを開いても、他パネルは開かない
             MainWindowDriver.StartGame("Debug", panelSize);
-            GameAreaDriver.MouseDown(new System.Windows.Point(50, 50));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(50, 50));
             Assert.AreEqual(expected: 24, actual: InformationAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 1, actual: InformationAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpened(1));
 
             // 地雷パネルを開いても、他パネルは開かない
-            GameAreaDriver.MouseDown(new System.Windows.Point(70, 70));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(70, 70));
             Assert.AreEqual(expected: 23, actual: InformationAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 2, actual: InformationAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpened(1));
@@ -241,7 +241,7 @@ namespace TestMyMinesweeper
             // 旗を立てる際はパネルを開かない
             GameAreaDriver.SwitchMode();    // Open -> Flag
             Assert.AreEqual(expected: "Flag", actual: InformationAreaDriver.GetGameMode());
-            GameAreaDriver.MouseDown(new System.Windows.Point(10, 10));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(10, 10));
             Assert.AreEqual(expected: 25, actual: GameAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelFlag());
@@ -250,7 +250,7 @@ namespace TestMyMinesweeper
             // 旗が立っているパネルは開けない
             GameAreaDriver.SwitchMode();    // Flag -> Open
             Assert.AreEqual(expected: "Open", actual: InformationAreaDriver.GetGameMode());
-            GameAreaDriver.MouseDown(new System.Windows.Point(10, 10));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(10, 10));
             Assert.AreEqual(expected: 25, actual: GameAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelFlag());
@@ -258,7 +258,7 @@ namespace TestMyMinesweeper
 
             // 旗が立っているパネルに再度旗を立てることで疑問符を付けられる
             GameAreaDriver.SwitchMode();    // Open -> Flag
-            GameAreaDriver.MouseDown(new System.Windows.Point(10, 10));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(10, 10));
             Assert.AreEqual(expected: 25, actual: GameAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelFlag());
@@ -267,14 +267,14 @@ namespace TestMyMinesweeper
 
             // 疑問符パネルは開けない
             GameAreaDriver.SwitchMode();    // Flag -> Open
-            GameAreaDriver.MouseDown(new System.Windows.Point(10, 10));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(10, 10));
             Assert.AreEqual(expected: 25, actual: GameAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelQuestion());
 
             // 疑問符パネルに再度旗を立てることで、通常の未開放パネルに戻る
             GameAreaDriver.SwitchMode();    // Open -> Flag
-            GameAreaDriver.MouseDown(new System.Windows.Point(10, 10));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(10, 10));
             Assert.AreEqual(expected: 25, actual: GameAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelFlag());
@@ -282,35 +282,35 @@ namespace TestMyMinesweeper
 
             // 未開放パネルに戻れば、それを開くことができる
             GameAreaDriver.SwitchMode();    // Flag -> Open
-            GameAreaDriver.MouseDown(new System.Windows.Point(10, 10));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(10, 10));
             Assert.AreEqual(expected: 7, actual: GameAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 18, actual: GameAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelFlag());
 
             // 地雷パネルにも旗を立てることができる
             GameAreaDriver.SwitchMode();    // Open -> Flag
-            GameAreaDriver.MouseDown(new System.Windows.Point(70, 70));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(70, 70));
             Assert.AreEqual(expected: 7, actual: GameAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 18, actual: GameAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelFlag());
 
             // 地雷パネルでも旗が立っている場合は開けない -> ゲームオーバーにならない
             GameAreaDriver.SwitchMode();    // Flag -> Open
-            GameAreaDriver.MouseDown(new System.Windows.Point(70, 70));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(70, 70));
             Assert.IsFalse(GameAreaDriver.IsShowingGameOver());
             Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelFlag());
 
             // 隣接地雷数0のパネルに旗および疑問符をつけている場合、まとめて開く処理に巻き込まれるのであれば開く
             MainWindowDriver.StartGame("Debug", panelSize);
             GameAreaDriver.SwitchMode();    // Open -> Flag
-            GameAreaDriver.MouseDown(new System.Windows.Point(30, 10));    // Flag
-            GameAreaDriver.MouseDown(new System.Windows.Point(50, 10));
-            GameAreaDriver.MouseDown(new System.Windows.Point(50, 10));    // Question
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(30, 10));    // Flag
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(50, 10));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(50, 10));    // Question
             Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelFlag());
             Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelQuestion());
 
             GameAreaDriver.SwitchMode();    // Flag -> Open
-            GameAreaDriver.MouseDown(new System.Windows.Point(30, 30));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(30, 30));
             Assert.AreEqual(expected: 7, actual: GameAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 18, actual: GameAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelFlag());
@@ -323,20 +323,20 @@ namespace TestMyMinesweeper
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    GameAreaDriver.MouseDown(new System.Windows.Point(10 + (i * panelSize), 10 + (j * panelSize)));
+                    GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(10 + (i * panelSize), 10 + (j * panelSize)));
                 }
             }
             Assert.IsFalse(GameAreaDriver.IsShowingGameOver());
 
-            GameAreaDriver.MouseDown(new System.Windows.Point(10, 70));
-            GameAreaDriver.MouseDown(new System.Windows.Point(30, 70));
-            GameAreaDriver.MouseDown(new System.Windows.Point(50, 70));
-            GameAreaDriver.MouseDown(new System.Windows.Point(90, 70));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(10, 70));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(30, 70));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(50, 70));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(90, 70));
 
-            GameAreaDriver.MouseDown(new System.Windows.Point(30, 90));
-            GameAreaDriver.MouseDown(new System.Windows.Point(50, 90));
-            GameAreaDriver.MouseDown(new System.Windows.Point(70, 90));
-            GameAreaDriver.MouseDown(new System.Windows.Point(90, 90));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(30, 90));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(50, 90));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(70, 90));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(90, 90));
         }
 
         private void OpenAllWithoutMine2(int panelSize)
@@ -348,25 +348,25 @@ namespace TestMyMinesweeper
             //   ２   ★   ★   ★   ★    ★
             //   ３   ★   ７   ★   ８    ★
             //   ２   ★   ４   ★   ★    ★
-            GameAreaDriver.MouseDown(new System.Windows.Point( 10, 10));
-            GameAreaDriver.MouseDown(new System.Windows.Point( 30, 10));
-            GameAreaDriver.MouseDown(new System.Windows.Point(110, 10));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point( 10, 10));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point( 30, 10));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(110, 10));
 
-            GameAreaDriver.MouseDown(new System.Windows.Point( 10, 30));
-            GameAreaDriver.MouseDown(new System.Windows.Point( 30, 30));
-            GameAreaDriver.MouseDown(new System.Windows.Point( 50, 30));
-            GameAreaDriver.MouseDown(new System.Windows.Point( 70, 30));
-            GameAreaDriver.MouseDown(new System.Windows.Point( 90, 30));
-            GameAreaDriver.MouseDown(new System.Windows.Point(110, 30));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point( 10, 30));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point( 30, 30));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point( 50, 30));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point( 70, 30));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point( 90, 30));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(110, 30));
 
-            GameAreaDriver.MouseDown(new System.Windows.Point( 10, 50));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point( 10, 50));
 
-            GameAreaDriver.MouseDown(new System.Windows.Point( 10, 70));
-            GameAreaDriver.MouseDown(new System.Windows.Point( 50, 70));
-            GameAreaDriver.MouseDown(new System.Windows.Point( 90, 70));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point( 10, 70));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point( 50, 70));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point( 90, 70));
 
-            GameAreaDriver.MouseDown(new System.Windows.Point( 10, 90));
-            GameAreaDriver.MouseDown(new System.Windows.Point( 50, 90));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point( 10, 90));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point( 50, 90));
         }
     }
 }
