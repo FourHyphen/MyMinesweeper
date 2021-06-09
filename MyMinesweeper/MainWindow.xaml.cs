@@ -95,6 +95,14 @@ namespace MyMinesweeper
 
         private void GameAreaMouseRightButtonDown(System.Windows.Point p)
         {
+            if (!GameStatus.IsGameFinished(Panels))
+            {
+                GameAreaMouseRightButtonDownCore(p);
+            }
+        }
+
+        private void GameAreaMouseRightButtonDownCore(System.Windows.Point p)
+        {
             int x = (int)(p.X / 20.0);
             int y = (int)(p.Y / 20.0);
             Panels.AddFlag(x, y);

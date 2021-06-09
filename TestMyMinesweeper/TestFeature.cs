@@ -288,7 +288,7 @@ namespace TestMyMinesweeper
             Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelFlag());
 
             // 地雷パネルでも旗が立っている場合は開けない -> ゲームオーバーにならない
-            GameAreaDriver.MouseRightButtonDown(new System.Windows.Point(70, 70));
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(70, 70));
             Assert.IsFalse(GameAreaDriver.IsShowingGameOver());
             Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelFlag());
 
