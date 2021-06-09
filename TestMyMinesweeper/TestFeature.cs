@@ -213,7 +213,7 @@ namespace TestMyMinesweeper
 
             Assert.AreEqual(expected: 81, actual: InformationAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 0, actual: InformationAreaDriver.GetNumPanelOpened());
-            Assert.AreEqual(expected: 15, actual: InformationAreaDriver.GetNumMine());     // 地雷密度 = 0.18... = 15 / 81
+            Assert.AreEqual(expected: 12, actual: InformationAreaDriver.GetNumMine());     // 地雷密度 = 0.1481... = 12 / 81
             Assert.AreEqual(expected: 81, actual: GameAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelOpened(0));
