@@ -10,26 +10,28 @@ namespace TestMyMinesweeper
         [TestMethod]
         public void TestGameOverWhenPanelOpenedIsMine()
         {
+            GameStatus gs = new GameStatus();
             Panels panels = PanelsFactory.Create("Debug");
-            Assert.IsFalse(GameStatus.IsGameOver(panels));
+            Assert.IsFalse(gs.IsGameOver(panels));
 
             // 非地雷パネルのオープンチェック
             Assert.AreEqual(expected: Panel.PanelStatus.Closing, actual: panels.GetStatus(0, 0));
             panels.Open(0, 0);
             Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(0, 0));
-            Assert.IsFalse(GameStatus.IsGameOver(panels));
+            Assert.IsFalse(gs.IsGameOver(panels));
 
             // 地雷パネルのオープンチェック
             panels.Open(0, 4);
             Assert.AreEqual(expected: Panel.PanelStatus.Opened, actual: panels.GetStatus(0, 4));
-            Assert.IsTrue(GameStatus.IsGameOver(panels));
+            Assert.IsTrue(gs.IsGameOver(panels));
         }
 
         [TestMethod]
         public void TestGameClearWhenAllPanelOpenWithoutMine()
         {
+            GameStatus gs = new GameStatus();
             Panels panels = PanelsFactory.Create("Debug");
-            Assert.IsFalse(GameStatus.IsGameClear(panels));
+            Assert.IsFalse(gs.IsGameClear(panels));
 
             panels.Open(0, 0); panels.Open(1, 0); panels.Open(2, 0); panels.Open(3, 0); panels.Open(4, 0);
             panels.Open(0, 1); panels.Open(1, 1); panels.Open(2, 1); panels.Open(3, 1); panels.Open(4, 1);
@@ -37,22 +39,23 @@ namespace TestMyMinesweeper
             panels.Open(0, 3); panels.Open(1, 3); panels.Open(2, 3); /*              */ panels.Open(4, 3);
             /*              */ panels.Open(1, 4); panels.Open(2, 4); panels.Open(3, 4);
 
-            Assert.IsFalse(GameStatus.IsGameOver(panels));
-            Assert.IsFalse(GameStatus.IsGameClear(panels));
+            Assert.IsFalse(gs.IsGameOver(panels));
+            Assert.IsFalse(gs.IsGameClear(panels));
 
             panels.Open(4, 4);
-            Assert.IsFalse(GameStatus.IsGameOver(panels));
-            Assert.IsTrue(GameStatus.IsGameClear(panels));
+            Assert.IsFalse(gs.IsGameOver(panels));
+            Assert.IsTrue(gs.IsGameClear(panels));
         }
 
         [TestMethod]
         public void TestGameFinishWhenGameOverOrGameClear()
         {
             // ゲームオーバー
+            GameStatus gs = new GameStatus();
             Panels panels = PanelsFactory.Create("Debug");
-            Assert.IsFalse(GameStatus.IsGameFinished(panels));
+            Assert.IsFalse(gs.IsGameFinished(panels));
             panels.Open(0, 4);
-            Assert.IsTrue(GameStatus.IsGameFinished(panels));
+            Assert.IsTrue(gs.IsGameFinished(panels));
 
             // ゲームクリア
             panels = PanelsFactory.Create("Debug");
@@ -62,7 +65,7 @@ namespace TestMyMinesweeper
             panels.Open(0, 3); panels.Open(1, 3); panels.Open(2, 3); /*              */ panels.Open(4, 3);
             /*              */ panels.Open(1, 4); panels.Open(2, 4); panels.Open(3, 4); panels.Open(4, 4);
 
-            Assert.IsTrue(GameStatus.IsGameFinished(panels));
+            Assert.IsTrue(gs.IsGameFinished(panels));
         }
 
         [TestMethod]

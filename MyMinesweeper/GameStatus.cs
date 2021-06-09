@@ -18,17 +18,17 @@ namespace MyMinesweeper
 
         public GameStatus() { }
 
-        public static bool IsGameOver(Panels panels)
+        public bool IsGameOver(Panels panels)
         {
             return panels.IsOpenedPanelMine();
         }
 
-        public static bool IsGameClear(Panels panels)
+        public bool IsGameClear(Panels panels)
         {
             return panels.IsAllOpenedPanelsWithoutMine();
         }
 
-        public static bool IsGameFinished(Panels panels)
+        public bool IsGameFinished(Panels panels)
         {
             return (panels.IsAllOpenedPanelsWithoutMine() || panels.IsOpenedPanelMine());
         }
