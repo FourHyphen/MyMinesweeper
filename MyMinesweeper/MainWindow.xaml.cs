@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -74,18 +75,7 @@ namespace MyMinesweeper
 
         private void GameAreaMouseLeftButtonDown(System.Windows.Point p)
         {
-            if (!GameStatus.IsGameFinished(Panels))
-            {
-                GameAreaMouseLeftButtonDownCore(p);
-            }
-        }
-
-        private void GameAreaMouseLeftButtonDownCore(System.Windows.Point p)
-        {
-            int x = (int)(p.X / 20.0);
-            int y = (int)(p.Y / 20.0);
-            Panels.Open(x, y);
-            GameAreaDisplay.Update(Panels);
+            GameAreaMouseDown(p, "Open");
         }
 
         private void GameAreaMouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -95,17 +85,25 @@ namespace MyMinesweeper
 
         private void GameAreaMouseRightButtonDown(System.Windows.Point p)
         {
+            GameAreaMouseDown(p, "AddFlag");
+        }
+
+        private void GameAreaMouseDown(System.Windows.Point p, string panelsMethodName)
+        {
             if (!GameStatus.IsGameFinished(Panels))
             {
-                GameAreaMouseRightButtonDownCore(p);
+                GameAreaMouseDownCore(p, panelsMethodName);
             }
         }
 
-        private void GameAreaMouseRightButtonDownCore(System.Windows.Point p)
+        private void GameAreaMouseDownCore(System.Windows.Point p, string panelsMethodName)
         {
             int x = (int)(p.X / 20.0);
             int y = (int)(p.Y / 20.0);
-            Panels.AddFlag(x, y);
+
+            MethodInfo mi = Panels.GetType().GetMethod(panelsMethodName);
+            mi.Invoke(Panels, new object[] { x, y });
+
             GameAreaDisplay.Update(Panels);
         }
     }
