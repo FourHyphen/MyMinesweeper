@@ -19,6 +19,8 @@ namespace TestMyMinesweeper
 
         private static string PanelNameQuestion = "Question";
 
+        private static string PanelNameMineGameOver = "MineGameOver";
+
         private dynamic MainWindow { get; }
 
         private IWPFDependencyObjectCollection<System.Windows.DependencyObject> Tree { get; set; }
@@ -62,6 +64,11 @@ namespace TestMyMinesweeper
         public int GetNumPanelQuestion()
         {
             return GetDisplayNum(PanelNameQuestion);
+        }
+
+        public int GetNumPanelMineGameOver()
+        {
+            return GetDisplayNum(PanelNameMineGameOver);
         }
 
         private int GetDisplayNum(string panelName)
