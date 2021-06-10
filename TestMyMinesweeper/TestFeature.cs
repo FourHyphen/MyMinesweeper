@@ -238,8 +238,6 @@ namespace TestMyMinesweeper
             int panelSize = 20;
             MainWindowDriver.StartGame("Debug", panelSize);
 
-            // メッセージ：左クリックでパネル開いて右クリックで旗立てるよう変更中
-
             // 旗を立てる際はパネルを開かない
             GameAreaDriver.MouseRightButtonDown(new System.Windows.Point(10, 10));
             Assert.AreEqual(expected: 25, actual: GameAreaDriver.GetNumPanelClosing());
