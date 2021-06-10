@@ -21,6 +21,8 @@ namespace MyMinesweeper
     /// </summary>
     public partial class MainWindow : Window
     {
+        private int PanelSize { get; } = 20;
+
         private Panels Panels { get; set; }
 
         private GameAreaDisplay GameAreaDisplay { get; set; }
@@ -44,12 +46,12 @@ namespace MyMinesweeper
 
         private void MenuGameStartEasyClick(object sender, RoutedEventArgs e)
         {
-            StartGame("Easy", 20);
+            StartGame("Easy", PanelSize);
         }
 
         private void MenuGameStartNormalClick(object sender, RoutedEventArgs e)
         {
-            StartGame("Normal", 20);
+            StartGame("Normal", PanelSize);
         }
 
         private void StartGame(string gameMode, int panelSize)
@@ -98,8 +100,8 @@ namespace MyMinesweeper
 
         private void GameAreaMouseDownCore(System.Windows.Point p, string panelsMethodName)
         {
-            int x = (int)(p.X / 20.0);
-            int y = (int)(p.Y / 20.0);
+            int x = (int)(p.X / (double)PanelSize);
+            int y = (int)(p.Y / (double)PanelSize);
 
             MethodInfo mi = Panels.GetType().GetMethod(panelsMethodName);
             mi.Invoke(Panels, new object[] { x, y });
