@@ -28,7 +28,7 @@ namespace TestMyMinesweeper
         {
             PanelImage pi = new PanelImage(20);
 
-            Image closing = pi.CreateImage(MyMinesweeper.Panel.PanelStatus.Closing, true, 0);
+            Image closing = pi.CreateImage(MyMinesweeper.Panel.PanelStatus.Closing, true, 0, false);
             Assert.AreEqual(expected: "closing", actual: closing.Name.ToLower());
 
             AreEqualImageNearMine(pi, 0);
@@ -41,19 +41,22 @@ namespace TestMyMinesweeper
             AreEqualImageNearMine(pi, 7);
             AreEqualImageNearMine(pi, 8);
 
-            Image openedMine = pi.CreateImage(MyMinesweeper.Panel.PanelStatus.Opened, true, 0);
+            Image openedMine = pi.CreateImage(MyMinesweeper.Panel.PanelStatus.Opened, true, 0, false);
             Assert.AreEqual(expected: "openedmine", actual: openedMine.Name.ToLower());
 
-            Image flag = pi.CreateImage(MyMinesweeper.Panel.PanelStatus.Flag, true, 0);
+            Image flag = pi.CreateImage(MyMinesweeper.Panel.PanelStatus.Flag, true, 0, false);
             Assert.AreEqual(expected: "flag", actual: flag.Name.ToLower());
 
-            Image question = pi.CreateImage(MyMinesweeper.Panel.PanelStatus.Question, true, 0);
+            Image question = pi.CreateImage(MyMinesweeper.Panel.PanelStatus.Question, true, 0, false);
             Assert.AreEqual(expected: "question", actual: question.Name.ToLower());
+
+            Image mineGameOver = pi.CreateImage(MyMinesweeper.Panel.PanelStatus.Closing, true, 0, true);
+            Assert.AreEqual(expected: "minegameover", actual: mineGameOver.Name.ToLower());
         }
 
         private void AreEqualImageNearMine(PanelImage pi, int nearMineNum)
         {
-            Image opened = pi.CreateImage(MyMinesweeper.Panel.PanelStatus.Opened, false, nearMineNum);
+            Image opened = pi.CreateImage(MyMinesweeper.Panel.PanelStatus.Opened, false, nearMineNum, false);
             Assert.AreEqual(expected: "opened" + nearMineNum.ToString(), actual: opened.Name.ToLower());
         }
     }
