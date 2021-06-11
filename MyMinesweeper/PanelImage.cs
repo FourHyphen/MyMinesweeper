@@ -53,7 +53,7 @@ namespace MyMinesweeper
             ImageOpenedNearMine8 = ImageProcess.GetShowImage("./Resource/Image/Opened8.png", panelSize, panelSize);
             ImageFlag = ImageProcess.GetShowImage("./Resource/Image/Flag.png", panelSize, panelSize);
             ImageQuestion = ImageProcess.GetShowImage("./Resource/Image/Question.png", panelSize, panelSize);
-            ImageMineGameOver = ImageProcess.GetShowImage("./Resource/Image/OpenedMine.png", panelSize, panelSize);    // 地雷パネル画像を使い回し
+            ImageMineGameOver = ImageProcess.GetShowImage("./Resource/Image/MineGameOver.png", panelSize, panelSize);
         }
 
         public Image CreateImage(Panel.PanelStatus status, bool isMine, int numNearMine, bool isGameOver)
