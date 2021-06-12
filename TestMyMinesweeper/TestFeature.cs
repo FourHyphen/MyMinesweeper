@@ -312,9 +312,18 @@ namespace TestMyMinesweeper
             MainWindowDriver.StartGame("Debug", panelSize);
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelMineGameOver());
 
+            // 旗パネルや疑問符パネルはゲームオーバー時にその設定をリセットする
+            GameAreaDriver.MouseRightButtonDown(new System.Windows.Point(10, 90));    // 旗
+            GameAreaDriver.MouseRightButtonDown(new System.Windows.Point(10, 10));
+            GameAreaDriver.MouseRightButtonDown(new System.Windows.Point(10, 10));    // 疑問符
+            Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelFlag());
+            Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelQuestion());
+
             GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(70, 70));
             Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelMineGameOver());
+            Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelFlag());
+            Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelQuestion());
         }
 
         [TestMethod]
