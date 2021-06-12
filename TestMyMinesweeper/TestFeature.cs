@@ -333,9 +333,18 @@ namespace TestMyMinesweeper
             MainWindowDriver.StartGame("Debug", panelSize);
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelMineGameClear());
 
+            // 旗パネルや疑問符パネルはゲームクリア時にその設定をリセットする
+            GameAreaDriver.MouseRightButtonDown(new System.Windows.Point(70, 70));    // 旗
+            GameAreaDriver.MouseRightButtonDown(new System.Windows.Point(10, 90));
+            GameAreaDriver.MouseRightButtonDown(new System.Windows.Point(10, 90));    // 疑問符
+            Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelFlag());
+            Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelQuestion());
+
             OpenAllWithoutMine(20);
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelMineGameOver());
             Assert.AreEqual(expected: 2, actual: GameAreaDriver.GetNumPanelMineGameClear());
+            Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelFlag());
+            Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelQuestion());
         }
 
         private void OpenAllWithoutMine(int panelSize)
