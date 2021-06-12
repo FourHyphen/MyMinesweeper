@@ -78,7 +78,11 @@ namespace MyMinesweeper
         private Image CreateImageWhenGameOver(Panel.PanelStatus status, bool isMine, int numNearMine)
         {
             Image image = new Image();
-            if (status == Panel.PanelStatus.Closing)
+            if (status == Panel.PanelStatus.Opened)
+            {
+                SetImageOpened(isMine, numNearMine, ref image);
+            }
+            else
             {
                 if (isMine)
                 {
@@ -89,18 +93,6 @@ namespace MyMinesweeper
                 {
                     SetImageClosing(ref image);
                 }
-            }
-            else if (status == Panel.PanelStatus.Flag)
-            {
-                SetImageFlag(ref image);
-            }
-            else if (status == Panel.PanelStatus.Question)
-            {
-                SetImageQuestion(ref image);
-            }
-            else if (status == Panel.PanelStatus.Opened)
-            {
-                SetImageOpened(isMine, numNearMine, ref image);
             }
 
             return image;
