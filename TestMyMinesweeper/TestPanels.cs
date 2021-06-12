@@ -100,23 +100,15 @@ namespace TestMyMinesweeper
         [TestMethod]
         public void TestEasyMode()
         {
-            Panels panels = PanelsFactory.Create("Easy");
-            Assert.AreEqual(expected: 81, actual: panels.GetNumClosing());
-            Assert.AreEqual(expected: 10, actual: panels.GetNumMine());
-
             // パネルをランダムで生成していることの確認
-            DoCreatePanelsAtRandom();
+            DoCreatePanelsAtRandom("Easy");
         }
 
         [TestMethod]
         public void TestNormalMode()
         {
-            Panels panels = PanelsFactory.Create("Normal");
-            Assert.AreEqual(expected: 225, actual: panels.GetNumClosing());
-            Assert.AreEqual(expected: 57, actual: panels.GetNumMine());
-
             // パネルをランダムで生成していることの確認
-            DoCreatePanelsAtRandom();
+            DoCreatePanelsAtRandom("Normal");
         }
 
         [TestMethod]
@@ -207,13 +199,13 @@ namespace TestMyMinesweeper
             Assert.IsTrue(panels.IsAllOpenedPanelsWithoutMine());
         }
 
-        private void DoCreatePanelsAtRandom()
+        private void DoCreatePanelsAtRandom(string mode)
         {
             // Panels生成して同じ位置をOpenを繰り返したとき、閉じているパネル数にばらつきがあるならランダム生成しているのでOKとする
             List<int> closings = new List<int>();
             for (int i = 0; i < 200; i++)
             {
-                Panels panels = PanelsFactory.Create("Easy");
+                Panels panels = PanelsFactory.Create(mode);
                 panels.Open(1, 1);
                 closings.Add(panels.GetNumClosing());
             }
