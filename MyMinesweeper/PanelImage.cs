@@ -10,35 +10,35 @@ namespace MyMinesweeper
 {
     public class PanelImage
     {
-        public BitmapSource ImageClosing { get; private set; }
+        private BitmapSource ImageClosing { get; }
 
-        public BitmapSource ImageOpenedMine { get; private set; }
+        private BitmapSource ImageOpenedMine { get; }
 
-        public BitmapSource ImageOpenedNearMine0 { get; private set; }
+        private BitmapSource ImageOpenedNearMine0 { get; }
 
-        public BitmapSource ImageOpenedNearMine1 { get; private set; }
+        private BitmapSource ImageOpenedNearMine1 { get; }
 
-        public BitmapSource ImageOpenedNearMine2 { get; private set; }
+        private BitmapSource ImageOpenedNearMine2 { get; }
 
-        public BitmapSource ImageOpenedNearMine3 { get; private set; }
+        private BitmapSource ImageOpenedNearMine3 { get; }
 
-        public BitmapSource ImageOpenedNearMine4 { get; private set; }
+        private BitmapSource ImageOpenedNearMine4 { get; }
 
-        public BitmapSource ImageOpenedNearMine5 { get; private set; }
+        private BitmapSource ImageOpenedNearMine5 { get; }
 
-        public BitmapSource ImageOpenedNearMine6 { get; private set; }
+        private BitmapSource ImageOpenedNearMine6 { get; }
 
-        public BitmapSource ImageOpenedNearMine7 { get; private set; }
+        private BitmapSource ImageOpenedNearMine7 { get; }
 
-        public BitmapSource ImageOpenedNearMine8 { get; private set; }
+        private BitmapSource ImageOpenedNearMine8 { get; }
 
-        public BitmapSource ImageFlag { get; private set; }
+        private BitmapSource ImageFlag { get; }
 
-        public BitmapSource ImageQuestion { get; private set; }
+        private BitmapSource ImageQuestion { get; }
 
-        public BitmapSource ImageMineGameOver { get; private set; }
+        private BitmapSource ImageMineGameOver { get; }
 
-        public BitmapSource ImageMineGameClear { get; private set; }
+        private BitmapSource ImageMineGameClear { get; }
 
         public PanelImage(int panelSize)
         {
