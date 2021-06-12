@@ -29,18 +29,6 @@
                       Column="0"
                       MouseLeftButtonDown="GameAreaMouseLeftButtonDown"
                       MouseRightButtonDown="GameAreaMouseRightButtonDown">
-                    <!--Play Result-->
-                    <Grid x:Name="PlayResultArea"
-                          HorizontalAlignment="Stretch"
-                          VerticalAlignment="Center"
-                          Background="Red"
-                          Visibility="Hidden">
-                        <Label x:Name="PlayResultLabel"
-                               Content="Result"
-                               Foreground="White"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"/>
-                    </Grid>
                 </Grid>
 
                 <Border Grid.Row="0" BorderBrush="Black" BorderThickness="0.5" />
@@ -75,7 +63,18 @@
                     </Grid>
 
                     <Grid Grid.Row="1">
-
+                        <!--Play Result-->
+                        <Grid x:Name="PlayResultArea"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Top"
+                          Background="Red"
+                          Visibility="Hidden">
+                            <Label x:Name="PlayResultLabel"
+                               Content="Result"
+                               Foreground="White"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>
