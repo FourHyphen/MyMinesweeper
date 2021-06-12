@@ -102,7 +102,7 @@ namespace TestMyMinesweeper
         {
             Panels panels = PanelsFactory.Create("Easy");
             Assert.AreEqual(expected: 81, actual: panels.GetNumClosing());
-            Assert.AreEqual(expected: 12, actual: panels.GetNumMine());
+            Assert.AreEqual(expected: 10, actual: panels.GetNumMine());
 
             // パネルをランダムで生成していることの確認
             DoCreatePanelsAtRandom();

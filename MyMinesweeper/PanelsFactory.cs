@@ -31,7 +31,7 @@ namespace MyMinesweeper
 
         private static Panels CreateEasy()
         {
-            return CreateCore(9, 9, 12);
+            return CreateCore(9, 9, 10);
         }
 
         private static Panels CreateNormal()
