@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MyMinesweeper
+﻿namespace MyMinesweeper
 {
     public class Panel
     {

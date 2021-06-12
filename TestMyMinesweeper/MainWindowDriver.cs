@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TestMyMinesweeper
+﻿namespace TestMyMinesweeper
 {
     class MainWindowDriver
     {

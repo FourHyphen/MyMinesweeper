@@ -1,6 +1,5 @@
 ﻿using Codeer.Friendly.Windows.Grasp;
 using RM.Friendly.WPFStandardControls;
-using System;
 using System.Windows;
 
 namespace TestMyMinesweeper
