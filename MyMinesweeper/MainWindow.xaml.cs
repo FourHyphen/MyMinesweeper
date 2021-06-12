@@ -5,9 +5,6 @@ using System.Windows.Input;
 
 namespace MyMinesweeper
 {
-    /// <summary>
-    /// MainWindow.xaml の相互作用ロジック
-    /// </summary>
     public partial class MainWindow : Window
     {
         private int PanelSize { get; } = 20;
