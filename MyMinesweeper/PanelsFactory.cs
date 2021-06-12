@@ -36,7 +36,7 @@ namespace MyMinesweeper
 
         private static Panels CreateNormal()
         {
-            return CreateCore(15, 15, 57);
+            return CreateCore(15, 15, 33);
         }
 
         private static Panels CreateCore(int width, int height, int mineNum)
