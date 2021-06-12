@@ -64,7 +64,7 @@ namespace TestMyMinesweeper
             //          ■■■■■
             //  61 ～ 80■■■★■
             //          ★■■■■
-            MainWindowDriver.StartGame("Debug", 20);    // 20 = 1マスのサイズ(pixel)
+            StartGame("Debug", 20);    // 20 = 1マスのサイズ(pixel)
 
             Assert.IsFalse(GameAreaDriver.IsShowingGameOver());
             Assert.AreEqual(expected: 25, actual: InformationAreaDriver.GetNumPanelClosing());
@@ -91,7 +91,7 @@ namespace TestMyMinesweeper
         public void TestGameClearWhenAllPanelOpenWithoutMine()
         {
             int panelSize = 20;
-            MainWindowDriver.StartGame("Debug", panelSize);
+            StartGame("Debug", panelSize);
             OpenAllWithoutMine(panelSize);
 
             // パネルの状況の確認
@@ -119,7 +119,7 @@ namespace TestMyMinesweeper
             // ３★７★８★
             // ２★４★★★
             int panelSize = 20;
-            MainWindowDriver.StartGame("Debug2", panelSize);
+            StartGame("Debug2", panelSize);
 
             OpenAllWithoutMine2(panelSize);
 
@@ -144,7 +144,7 @@ namespace TestMyMinesweeper
         public void TestRestartGame()
         {
             int panelSize = 20;
-            MainWindowDriver.StartGame("Debug", panelSize);
+            StartGame("Debug", panelSize);
             Assert.IsFalse(GameAreaDriver.IsShowingGameOver());
 
             GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(70, 50));    // 非地雷パネル数のリセットチェックのためにオープン
@@ -156,7 +156,7 @@ namespace TestMyMinesweeper
             Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelOpened(1));
 
             // Restartチェック
-            MainWindowDriver.StartGame("Debug2", panelSize);
+            StartGame("Debug2", panelSize);
             Assert.IsFalse(GameAreaDriver.IsShowingGameOver());
             Assert.AreEqual(expected: 30, actual: InformationAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 0, actual: InformationAreaDriver.GetNumPanelOpened());
@@ -169,7 +169,7 @@ namespace TestMyMinesweeper
         {
             // 隣接地雷数0の非地雷パネルを開いたら、周囲の非地雷パネルをまとめて開く機能
             int panelSize = 20;
-            MainWindowDriver.StartGame("Debug", panelSize);
+            StartGame("Debug", panelSize);
 
             // 角から探索開始(1)
             GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(10, 10));
@@ -178,21 +178,21 @@ namespace TestMyMinesweeper
             Assert.AreEqual(expected: 6, actual: GameAreaDriver.GetNumPanelOpened(1));
 
             // 角から探索開始(2)
-            MainWindowDriver.StartGame("Debug", panelSize);
+            StartGame("Debug", panelSize);
             GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(90, 10));
             Assert.AreEqual(expected: 7, actual: InformationAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 18, actual: InformationAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 6, actual: GameAreaDriver.GetNumPanelOpened(1));
 
             // 角以外から探索開始
-            MainWindowDriver.StartGame("Debug", panelSize);
+            StartGame("Debug", panelSize);
             GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(30, 30));
             Assert.AreEqual(expected: 7, actual: InformationAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 18, actual: InformationAreaDriver.GetNumPanelOpened());
             Assert.AreEqual(expected: 6, actual: GameAreaDriver.GetNumPanelOpened(1));
 
             // 地雷パネルに隣接しているパネルを開いても、他パネルは開かない
-            MainWindowDriver.StartGame("Debug", panelSize);
+            StartGame("Debug", panelSize);
             GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(50, 50));
             Assert.AreEqual(expected: 24, actual: InformationAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 1, actual: InformationAreaDriver.GetNumPanelOpened());
@@ -209,7 +209,7 @@ namespace TestMyMinesweeper
         public void TestStartGameEasyMode()
         {
             int panelSize = 20;
-            MainWindowDriver.StartGame("Easy", panelSize);
+            StartGame("Easy", panelSize);
 
             Assert.AreEqual(expected: 81, actual: InformationAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 0, actual: InformationAreaDriver.GetNumPanelOpened());
@@ -223,7 +223,7 @@ namespace TestMyMinesweeper
         public void TestStartGameNormalMode()
         {
             int panelSize = 20;
-            MainWindowDriver.StartGame("Normal", panelSize);
+            StartGame("Normal", panelSize);
 
             Assert.AreEqual(expected: 225, actual: InformationAreaDriver.GetNumPanelClosing());
             Assert.AreEqual(expected: 0, actual: InformationAreaDriver.GetNumPanelOpened());
@@ -236,7 +236,7 @@ namespace TestMyMinesweeper
         public void TestAddFlagAndQuestionForPanel()
         {
             int panelSize = 20;
-            MainWindowDriver.StartGame("Debug", panelSize);
+            StartGame("Debug", panelSize);
 
             // 旗を立てる際はパネルを開かない
             GameAreaDriver.MouseRightButtonDown(new System.Windows.Point(10, 10));
@@ -291,7 +291,7 @@ namespace TestMyMinesweeper
             Assert.AreEqual(expected: 1, actual: GameAreaDriver.GetNumPanelFlag());
 
             // 隣接地雷数0のパネルに旗および疑問符をつけている場合、まとめて開く処理に巻き込まれるのであれば開く
-            MainWindowDriver.StartGame("Debug", panelSize);
+            StartGame("Debug", panelSize);
             GameAreaDriver.MouseRightButtonDown(new System.Windows.Point(30, 10));    // Flag
             GameAreaDriver.MouseRightButtonDown(new System.Windows.Point(50, 10));
             GameAreaDriver.MouseRightButtonDown(new System.Windows.Point(50, 10));    // Question
@@ -309,7 +309,7 @@ namespace TestMyMinesweeper
         public void TestShowAllMineWhenGameOver()
         {
             int panelSize = 20;
-            MainWindowDriver.StartGame("Debug", panelSize);
+            StartGame("Debug", panelSize);
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelMineGameOver());
 
             // 旗パネルや疑問符パネルはゲームオーバー時にその設定をリセットする
@@ -330,7 +330,7 @@ namespace TestMyMinesweeper
         public void TestShowAllMineWhenGameClear()
         {
             int panelSize = 20;
-            MainWindowDriver.StartGame("Debug", panelSize);
+            StartGame("Debug", panelSize);
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelMineGameClear());
 
             // 旗パネルや疑問符パネルはゲームクリア時にその設定をリセットする
@@ -345,6 +345,29 @@ namespace TestMyMinesweeper
             Assert.AreEqual(expected: 2, actual: GameAreaDriver.GetNumPanelMineGameClear());
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelFlag());
             Assert.AreEqual(expected: 0, actual: GameAreaDriver.GetNumPanelQuestion());
+        }
+
+        [TestMethod]
+        public void TestSetPanelSize()
+        {
+            int panelSize = 30;
+            StartGame("Debug", panelSize);
+
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(70, 70));      // 初期値だと地雷の位置
+            Assert.IsFalse(GameAreaDriver.IsShowingGameOver());
+            GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(115, 115));    // パネルサイズ変更後だと地雷の位置
+            Assert.IsTrue(GameAreaDriver.IsShowingGameOver());
+
+            panelSize = 30;
+            StartGame("Normal", panelSize);
+            Assert.IsTrue(GameAreaDriver.GetAreaWidth() >= (panelSize * 15));
+            Assert.IsTrue(GameAreaDriver.GetAreaHeight() >= (panelSize * 15));
+        }
+
+        private void StartGame(string mode, int panelSize)
+        {
+            MainWindowDriver.SetPanelSize(panelSize);
+            MainWindowDriver.StartGame(mode);
         }
 
         private void OpenAllWithoutMine(int panelSize)

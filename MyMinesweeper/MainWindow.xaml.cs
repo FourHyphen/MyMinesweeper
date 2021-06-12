@@ -32,28 +32,28 @@ namespace MyMinesweeper
 
         private void MenuGameStartEasyClick(object sender, RoutedEventArgs e)
         {
-            StartGame("Easy", PanelSize);
+            StartGame("Easy");
         }
 
         private void MenuGameStartNormalClick(object sender, RoutedEventArgs e)
         {
-            StartGame("Normal", PanelSize);
+            StartGame("Normal");
         }
 
-        private void StartGame(string gameMode, int panelSize)
+        private void StartGame(string gameMode)
         {
             Panels = PanelsFactory.Create(gameMode);
-            CreateGameAreaDisplay(panelSize);
+            CreateGameAreaDisplay();
             GameAreaDisplay.Update(Panels);
         }
 
-        private void CreateGameAreaDisplay(int panelSize)
+        private void CreateGameAreaDisplay()
         {
             if (!(GameAreaDisplay is null))
             {
                 GameAreaDisplay.Dispose();
             }
-            GameAreaDisplay = new GameAreaDisplay(this, panelSize);
+            GameAreaDisplay = new GameAreaDisplay(this, PanelSize);
         }
 
         private void GameAreaMouseLeftButtonDown(object sender, MouseButtonEventArgs e)

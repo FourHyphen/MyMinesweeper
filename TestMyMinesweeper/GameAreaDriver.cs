@@ -1,5 +1,6 @@
 ﻿using Codeer.Friendly.Windows.Grasp;
 using RM.Friendly.WPFStandardControls;
+using System;
 using System.Windows;
 
 namespace TestMyMinesweeper
@@ -127,6 +128,16 @@ namespace TestMyMinesweeper
         internal void MouseRightButtonDown(System.Windows.Point p)
         {
             MainWindow.GameAreaMouseRightButtonDown(p);
+        }
+
+        internal int GetAreaWidth()
+        {
+            return 0;
+        }
+
+        internal int GetAreaHeight()
+        {
+            return 0;
         }
     }
 }

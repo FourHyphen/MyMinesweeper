@@ -9,9 +9,13 @@
             MainWindow = mainWindow;
         }
 
-        internal void StartGame(string gameMode, int panelSize)
+        internal void StartGame(string gameMode)
         {
-            MainWindow.StartGame(gameMode, panelSize);
+            MainWindow.StartGame(gameMode);
+        }
+
+        internal void SetPanelSize(int panelSize)
+        {
         }
     }
 }
