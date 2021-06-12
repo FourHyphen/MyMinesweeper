@@ -41,7 +41,8 @@ namespace TestMyMinesweeper
             int num = GetDisplayNum(PanelNameClosing);
             num += GetDisplayNum(PanelNameFlag);
             num += GetDisplayNum(PanelNameQuestion);
-            return num += GetDisplayNum(PanelNameMineGameOver);
+            num += GetDisplayNum(PanelNameMineGameOver);
+            return num + GetDisplayNum(PanelNameMineGameClear);
         }
 
         public int GetNumPanelOpened()
