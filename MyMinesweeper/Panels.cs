@@ -170,7 +170,11 @@ namespace MyMinesweeper
 
         public void AddFlag(int x, int y)
         {
-            PanelList[CalcIndex(x, y)].AddFlag();
+            int index = CalcIndex(x, y);
+            if (PanelList[index].Status != Panel.PanelStatus.Opened)
+            {
+                PanelList[CalcIndex(x, y)].AddFlag();
+            }
         }
 
         public bool IsOpenedPanelMine()

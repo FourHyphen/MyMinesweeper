@@ -134,6 +134,12 @@ namespace TestMyMinesweeper
             Assert.AreEqual(expected: 18, actual: panels.GetNumOpened());
             Assert.AreEqual(expected: 0, actual: panels.GetNumFlag());
 
+            // すでに開いているパネルには旗は立てられない
+            panels.AddFlag(1, 1);
+            Assert.AreEqual(expected: 7, actual: panels.GetNumClosing());
+            Assert.AreEqual(expected: 18, actual: panels.GetNumOpened());
+            Assert.AreEqual(expected: 0, actual: panels.GetNumFlag());
+
             // 残っているのが旗パネルのみの場合(= 全ての地雷パネルに旗を立てている場合)は全て開いたと判定する
             panels.AddFlag(3, 3);
             panels.AddFlag(0, 4);
