@@ -79,7 +79,8 @@ namespace MyMinesweeper
             bool isMine = panels.IsMine(x, y);
             int numNearMine = panels.GetNumNearMine(x, y);
             bool isGameOver = GameStatus.IsGameOver(panels);
-            return PanelImage.CreateImage(status, isMine, numNearMine, isGameOver);
+            bool isGameClear = GameStatus.IsGameClear(panels);
+            return PanelImage.CreateImage(status, isMine, numNearMine, isGameOver, isGameClear);
         }
 
         private void UpdateInformationArea(Panels panels)

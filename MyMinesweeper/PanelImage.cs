@@ -38,6 +38,8 @@ namespace MyMinesweeper
 
         public BitmapSource ImageMineGameOver { get; private set; }
 
+        public BitmapSource ImageMineGameClear { get; private set; }
+
         public PanelImage(int panelSize)
         {
             ImageClosing = ImageProcess.GetShowImage("./Resource/Image/Closing.png", panelSize, panelSize);
@@ -54,13 +56,18 @@ namespace MyMinesweeper
             ImageFlag = ImageProcess.GetShowImage("./Resource/Image/Flag.png", panelSize, panelSize);
             ImageQuestion = ImageProcess.GetShowImage("./Resource/Image/Question.png", panelSize, panelSize);
             ImageMineGameOver = ImageProcess.GetShowImage("./Resource/Image/MineGameOver.png", panelSize, panelSize);
+            ImageMineGameClear = ImageProcess.GetShowImage("./Resource/Image/MineGameClear.png", panelSize, panelSize);
         }
 
-        public Image CreateImage(Panel.PanelStatus status, bool isMine, int numNearMine, bool isGameOver)
+        public Image CreateImage(Panel.PanelStatus status, bool isMine, int numNearMine, bool isGameOver, bool isGameClear)
         {
             if (isGameOver)
             {
                 return CreateImageWhenGameOver(status, isMine, numNearMine);
+            }
+            else if (isGameClear)
+            {
+                return CreateImageWhenGameClear(status, isMine, numNearMine);
             }
             else
             {
@@ -77,6 +84,37 @@ namespace MyMinesweeper
                 {
                     image.Source = ImageMineGameOver;
                     image.Name = "MineGameOver";
+                }
+                else
+                {
+                    SetImageClosing(ref image);
+                }
+            }
+            else if (status == Panel.PanelStatus.Flag)
+            {
+                SetImageFlag(ref image);
+            }
+            else if (status == Panel.PanelStatus.Question)
+            {
+                SetImageQuestion(ref image);
+            }
+            else if (status == Panel.PanelStatus.Opened)
+            {
+                SetImageOpened(isMine, numNearMine, ref image);
+            }
+
+            return image;
+        }
+
+        private Image CreateImageWhenGameClear(Panel.PanelStatus status, bool isMine, int numNearMine)
+        {
+            Image image = new Image();
+            if (status == Panel.PanelStatus.Closing)
+            {
+                if (isMine)
+                {
+                    image.Source = ImageMineGameClear;
+                    image.Name = "MineGameClear";
                 }
                 else
                 {
