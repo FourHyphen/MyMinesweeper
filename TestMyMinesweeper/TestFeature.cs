@@ -358,10 +358,31 @@ namespace TestMyMinesweeper
             GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(115, 115));    // パネルサイズ変更後だと地雷の位置
             Assert.IsTrue(GameAreaDriver.IsShowingGameOver());
 
+            // 画面拡大時の確認
             panelSize = 30;
             StartGame("Normal", panelSize);
-            Assert.IsTrue(GameAreaDriver.GetAreaWidth() >= (panelSize * 15));
-            Assert.IsTrue(GameAreaDriver.GetAreaHeight() >= (panelSize * 15));
+            int gameAreaWidth = GameAreaDriver.GetAreaWidth();
+            int gameAreaHeight = GameAreaDriver.GetAreaHeight();
+            int mainWindowWidth = MainWindowDriver.GetWindowWidth();
+            int mainWindowHeight = MainWindowDriver.GetWindowHeight();
+            int areaSize = panelSize * 15;
+            Assert.IsTrue(gameAreaWidth >= areaSize);
+            Assert.IsTrue(gameAreaHeight >= areaSize);
+            Assert.IsTrue(mainWindowWidth >= areaSize);
+            Assert.IsTrue(mainWindowHeight >= areaSize);
+
+            // 画面縮小時の確認
+            panelSize = 20;
+            StartGame("Easy", panelSize);
+            gameAreaWidth = GameAreaDriver.GetAreaWidth();
+            gameAreaHeight = GameAreaDriver.GetAreaHeight();
+            mainWindowWidth = MainWindowDriver.GetWindowWidth();
+            mainWindowHeight = MainWindowDriver.GetWindowHeight();
+            areaSize = panelSize * 9;
+            Assert.IsTrue(areaSize <= gameAreaWidth && gameAreaWidth <= (areaSize + panelSize));
+            Assert.IsTrue(areaSize <= gameAreaHeight && gameAreaHeight <= (areaSize + panelSize));
+            Assert.IsTrue(areaSize <= mainWindowWidth);
+            Assert.IsTrue(areaSize <= mainWindowHeight && mainWindowHeight <= (areaSize + 100));    // 100 = メニューバー等の、ゲーム領域外の縦幅
         }
 
         private void StartGame(string mode, int panelSize)

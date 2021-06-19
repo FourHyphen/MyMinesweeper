@@ -7,7 +7,13 @@ namespace MyMinesweeper
 {
     public partial class MainWindow : Window
     {
-        private int PanelSize { get; } = 20;
+        private int PanelSize { get; set; } = 20;
+
+        private int InformationUpperHeight { get; } = 150;
+
+        private int InformationLowerHeight { get; } = 50;
+
+        private int InformationAreaHeight { get { return InformationUpperHeight + InformationLowerHeight; } }
 
         private Panels Panels { get; set; }
 
@@ -30,6 +36,21 @@ namespace MyMinesweeper
             Environment.CurrentDirectory = environmentDirPath;
         }
 
+        private void MenuPanelSizeMiddleClick(object sender, RoutedEventArgs e)
+        {
+            SetPanelSize(20);
+        }
+
+        private void MenuPanelSizeLargeClick(object sender, RoutedEventArgs e)
+        {
+            SetPanelSize(30);
+        }
+
+        private void SetPanelSize(int panelSize)
+        {
+            PanelSize = panelSize;
+        }
+
         private void MenuGameStartEasyClick(object sender, RoutedEventArgs e)
         {
             StartGame("Easy");
@@ -44,6 +65,7 @@ namespace MyMinesweeper
         {
             Panels = PanelsFactory.Create(gameMode);
             CreateGameAreaDisplay();
+            AdjustGameArea();
             GameAreaDisplay.Update(Panels);
         }
 
@@ -54,6 +76,19 @@ namespace MyMinesweeper
                 GameAreaDisplay.Dispose();
             }
             GameAreaDisplay = new GameAreaDisplay(this, PanelSize);
+        }
+
+        private void AdjustGameArea()
+        {
+            GameArea.Width = PanelSize * Panels.Width;
+            GameArea.Height = Math.Max(PanelSize * Panels.Height, InformationAreaHeight);
+            GameAreaWidth.Content = GameArea.Width.ToString();
+            GameAreaHeight.Content = GameArea.Height.ToString();
+
+            this.Width = GameArea.Width + InformationArea.ActualWidth;
+            this.Height = Math.Max(GameArea.Height, InformationAreaHeight) + 60;    // 60 = 上部のメニューバー等
+            MainWindowWidth.Content = this.Width.ToString();
+            MainWindowHeight.Content = this.Height.ToString();
         }
 
         private void GameAreaMouseLeftButtonDown(object sender, MouseButtonEventArgs e)

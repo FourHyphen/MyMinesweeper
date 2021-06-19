@@ -29,11 +29,17 @@ namespace TestMyMinesweeper
 
         private LabelAdapter PlayResultLabel { get; set; }
 
+        private LabelAdapter GameAreaWidth { get; set; }
+
+        private LabelAdapter GameAreaHeight { get; set; }
+
         public GameAreaDriver(dynamic mainWindow)
         {
             MainWindow = mainWindow;
             Tree = new WindowControl(mainWindow).LogicalTree();
             PlayResultLabel = new LabelAdapter("PlayResultLabel");
+            GameAreaWidth = new LabelAdapter("GameAreaWidth");
+            GameAreaHeight = new LabelAdapter("GameAreaHeight");
         }
 
         public int GetNumPanelClosing()
@@ -132,12 +138,14 @@ namespace TestMyMinesweeper
 
         internal int GetAreaWidth()
         {
-            return 0;
+            UpdateNowMainWindowStatus();
+            return (int)GameAreaWidth.ContentNum(Tree);
         }
 
         internal int GetAreaHeight()
         {
-            return 0;
+            UpdateNowMainWindowStatus();
+            return (int)GameAreaHeight.ContentNum(Tree);
         }
     }
 }

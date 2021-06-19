@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyMinesweeper"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="500">
+        Title="MainWindow" Height="260" Width="340">
     <Grid>
         <DockPanel>
             <Menu x:Name="Menu"
@@ -15,18 +15,24 @@
                         <MenuItem Header="Easy" Click="MenuGameStartEasyClick"/>
                         <MenuItem Header="Normal" Click="MenuGameStartNormalClick"/>
                     </MenuItem>
+                    <MenuItem Header="パネルサイズ">
+                        <MenuItem Header="中" Click="MenuPanelSizeMiddleClick"/>
+                        <MenuItem Header="大" Click="MenuPanelSizeLargeClick"/>
+                    </MenuItem>
                 </MenuItem>
             </Menu>
 
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
+                <!--<Grid.ColumnDefinitions>
+                    <ColumnDefinition x:Name="GameAreaGrid" Width="180"/>
+                    <ColumnDefinition x:Name="InformationAreaGrid" Width="160"/>
+                </Grid.ColumnDefinitions>-->
 
+                <StackPanel Orientation="Horizontal">
+                    
                 <!--Game Area-->
                 <Grid x:Name="GameArea"
-                      Column="0"
+                      Width="180"
                       MouseLeftButtonDown="GameAreaMouseLeftButtonDown"
                       MouseRightButtonDown="GameAreaMouseRightButtonDown">
                 </Grid>
@@ -34,10 +40,11 @@
                 <Border Grid.Row="0" BorderBrush="Black" BorderThickness="0.5" />
 
                 <!--Status-->
-                <Grid Column="1">
+                <Grid x:Name="InformationArea"
+                      Width="160">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
+                        <RowDefinition x:Name="InformationUpper" Height="150"/>
+                        <RowDefinition x:Name="InformationLower" Height="50"/>
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0">
@@ -77,6 +84,12 @@
                         </Grid>
                     </Grid>
                 </Grid>
+                </StackPanel>
+
+                <Label x:Name="MainWindowWidth" Visibility="Hidden"/>
+                <Label x:Name="MainWindowHeight" Visibility="Hidden"/>
+                <Label x:Name="GameAreaWidth" Visibility="Hidden"/>
+                <Label x:Name="GameAreaHeight" Visibility="Hidden"/>
             </Grid>
         </DockPanel>
     </Grid>
