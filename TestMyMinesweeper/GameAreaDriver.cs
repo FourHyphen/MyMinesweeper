@@ -1,6 +1,5 @@
 ﻿using Codeer.Friendly.Windows.Grasp;
 using RM.Friendly.WPFStandardControls;
-using System;
 using System.Windows;
 
 namespace TestMyMinesweeper
@@ -12,8 +11,6 @@ namespace TestMyMinesweeper
         private static string PanelNameOpened = "Opened";
 
         private static string PanelNameOpenedMine = "OpenedMine";
-
-        private static string PanelNameOpenedNearMine = "OpenedNearMine";
 
         private static string PanelNameFlag = "Flag";
 

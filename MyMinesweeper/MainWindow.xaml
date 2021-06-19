@@ -23,13 +23,8 @@
             </Menu>
 
             <Grid>
-                <!--<Grid.ColumnDefinitions>
-                    <ColumnDefinition x:Name="GameAreaGrid" Width="180"/>
-                    <ColumnDefinition x:Name="InformationAreaGrid" Width="160"/>
-                </Grid.ColumnDefinitions>-->
-
                 <StackPanel Orientation="Horizontal">
-                    
+
                 <!--Game Area-->
                 <Grid x:Name="GameArea"
                       Width="180"

@@ -121,7 +121,7 @@ namespace TestMyMinesweeper
             int panelSize = 20;
             StartGame("Debug2", panelSize);
 
-            OpenAllWithoutMine2(panelSize);
+            OpenAllWithoutMine2();
 
             // パネルの状況の確認
             Assert.AreEqual(expected: 15, actual: InformationAreaDriver.GetNumPanelClosing());
@@ -413,7 +413,7 @@ namespace TestMyMinesweeper
             GameAreaDriver.MouseLeftButtonDown(new System.Windows.Point(90, 90));
         }
 
-        private void OpenAllWithoutMine2(int panelSize)
+        private void OpenAllWithoutMine2()
         {
             // ex) panelSize = 20
             //  0  20   40   60   80   100   120
