@@ -54,7 +54,7 @@ namespace MyMinesweeper
 
         private void InitPanelsArea()
         {
-            if (PanelsArea is null)
+            if (PanelsArea == null)
             {
                 PanelsArea = new StackPanel();
                 Main.GameArea.Children.Add(PanelsArea);

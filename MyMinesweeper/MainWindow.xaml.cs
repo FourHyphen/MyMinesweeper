@@ -71,10 +71,7 @@ namespace MyMinesweeper
 
         private void CreateGameAreaDisplay()
         {
-            if (!(GameAreaDisplay is null))
-            {
-                GameAreaDisplay.Dispose();
-            }
+            GameAreaDisplay?.Dispose();
             GameAreaDisplay = new GameAreaDisplay(this, PanelSize);
         }
 

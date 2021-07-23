@@ -65,11 +65,7 @@ namespace MyMinesweeper
         private int CountMine(int x, int y)
         {
             int index = CalcIndex(x, y);
-            if (PanelList[index].IsMine)
-            {
-                return 1;
-            }
-            return 0;
+            return PanelList[index].IsMine ? 1 : 0;
         }
 
         public int GetNumClosing()
@@ -173,7 +169,7 @@ namespace MyMinesweeper
             int index = CalcIndex(x, y);
             if (PanelList[index].Status != Panel.PanelStatus.Opened)
             {
-                PanelList[CalcIndex(x, y)].AddFlag();
+                PanelList[index].AddFlag();
             }
         }
 
