@@ -50,7 +50,14 @@
     - 右クリックで未開放パネルに変えることができます
 
 # Install
-- 2021/xx/xx時点でコード公開のみ実施しています。お手数ですがご自身でビルドしてください。
+- 2021/7/23時点でコード公開のみ実施しています。お手数ですがご自身でビルドしてください。
 
 # Licence
-- [MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
+- 本ソフトウェア
+  - [MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
+- 使用パッケージ
+  - Apache License 2.0
+    - Codeer.Friendly
+    - Codeer.Friendly.Windows
+    - Codeer.Friendly.Windows.Grasp
+    - RM.Friendly.WPFStandardControls
